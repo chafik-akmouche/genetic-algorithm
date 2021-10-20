@@ -1,31 +1,34 @@
 package kab.geneticalgorithm.utils;
 
 import java.util.Arrays;
+import java.util.Random;
 
 public class Individu {
 	private int[] genes;
 	private int fitness;
 	private boolean fitnessChange = true;
 	
-	// individu (chromosome) = enemble de genes
+	Random rand = new Random();
+	
+	// constructeur
 	public Individu (int taille_individu) {
 		genes = new int[taille_individu];
 	}
 	
-	// initialiation des genes d un individu a 0
+	// initialiation des genes d un individu aleatoirement
 	public Individu initialiationIndividu() {
-		for (int i=0; i<genes.length; i++) {
-			genes[i] = 0;
+		for (int i=0; i<genes.length; i++) {  
+			genes[i] = 0;//rand.nextInt(2);
 		}
 		return this;
 	}
 	
-	// pour imprimer le contenu du tableau genes
+	// pour afficher le contenu du tableau genes
 	public String toString () {
 		return Arrays.toString(this.genes);
 	}
 	
-	// calcul de la fitness
+	// calcul de la fitness d'un individu
 	public int fitness () {
 		int fitnessIndividu = 0;
 		for (int i=0; i<genes.length; i++) {
@@ -36,7 +39,8 @@ public class Individu {
 		return fitnessIndividu;
 	}
 
-	// getters & setters
+	
+	// getters
 	public int[] getGenes() {
 		fitnessChange = true;
 		return genes;

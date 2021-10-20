@@ -6,39 +6,38 @@ public class Population {
 	private Individu[] individus;
 	private int taille_individu;
 	
-	// population = ensemble d individus
-	// taille_population = taille_individu 
-	// jai utilise la meme taille: nbr dindividu dans une pop = nbr de genes dans un individu
+	// constructeur
 	public Population(int taille_population, int taille_individu) {
 		this.taille_individu = taille_individu;
-		individus = new Individu[taille_population]; // pop a taille_population individu
+		// creation de la population
+		individus = new Individu[taille_population];
 	}
 	
 	// initialiation de la population
 	public Population initialiationPopulation () {
 		for (int i=0; i<individus.length; i++) {
+			// creation des individu de notre population + initialiation
 			individus[i] = new Individu(taille_individu).initialiationIndividu();
-							   // individu = 8 genes
 		}
-		
+		// trier les individu par fitness
 		TrierIndividusParFitness();
 		return this;
 	}
 
-	// Trier les individus par fitness
+	// metode pour trier les individus par fitness
 	public void TrierIndividusParFitness() {
 		Arrays.sort(individus, (individu1, individu2) -> {
 			int flag = 0;
-			if (individu1.getFitness() > individu1.getFitness()) {
+			if (individu1.getFitness() > individu2.getFitness()) {
 				flag = -1;
-			} else if (individu1.getFitness() < individu1.getFitness()) {
+			} else if (individu1.getFitness() < individu2.getFitness()) {
 				flag = 1;
 			}
 		return flag;
 		});
 	}
 
-	// getters & setters
+	// getter
 	public Individu[] getIndividus() {
 		return individus;
 	}

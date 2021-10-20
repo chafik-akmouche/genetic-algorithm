@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class Main {
 	public static final int TAILLE_POPULATION = 10;
 	public static final int TAILLE_INDIVIDU = 8;
-	public static final int NOMBRE_ITERATION = 10;
+	public static final int NOMBRE_ITERATION = 30;
 	
 	public static void main(String[] args) {
 		Population pop = new Population(TAILLE_POPULATION, TAILLE_INDIVIDU).initialiationPopulation();
@@ -15,7 +15,8 @@ public class Main {
 		while (nb_iteration < NOMBRE_ITERATION && pop.getIndividus()[0].getFitness() != TAILLE_INDIVIDU ) {			
 			nb_iteration++;
 			
-			pop = GA.croisementPopulation(pop);
+			// pop = GA.croisementSimplePopulation(pop);
+			pop = GA.croisementUniformePopulation(pop);			
 			pop = GA.mutationPopulation(pop);
 			
 			//pop = GA.evaluationPopulation(pop);

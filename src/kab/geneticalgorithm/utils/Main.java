@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class Main {
@@ -51,14 +52,21 @@ public class Main {
 				null, "Voulez-vous voir la courbe Fitness/Iteration ?", "Courbe Fitness",
 	            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 		if (afficherCourbe == 0) {
-			PrintWriter writer = new PrintWriter("data.dat", "UTF-8");
-			writer.println("Iteration Fitness");
-			for (int i=0; i<nb_iteration; i++) {
-				writer.println(i +" "+fitnessGenerat.get(i));
+			String SE = System.getProperty("os.name").toLowerCase();
+			if (SE.indexOf("nux") >= 0) {
+				PrintWriter writer = new PrintWriter("data.dat", "UTF-8");
+				writer.println("Iteration Fitness");
+				for (int i=0; i<nb_iteration; i++) {
+					writer.println(i +" "+fitnessGenerat.get(i));
+				}
+				
+				writer.close();
+				courbe.draw();
+			} else {
+				JOptionPane.showMessageDialog(new JFrame(), "Vous êtes sur "+SE+".\nNous ne pouvons malheureusement pas générer la courbe.", "Erreur - "+SE,
+				        JOptionPane.ERROR_MESSAGE);
+				System.exit(0);
 			}
-			
-			writer.close();
-			courbe.draw();
 		} else {
 			System.exit(0);
 		}

@@ -1,13 +1,19 @@
 package kab.geneticalgorithm.utils;
 
+import java.io.IOException;
 import java.util.Arrays;
+
+import javax.swing.JOptionPane;
 
 public class Main {
 	public static final int TAILLE_POPULATION = 10;
 	public static final int TAILLE_INDIVIDU = 8;
-	public static final int NOMBRE_ITERATION = 30;
+	public static final int NOMBRE_ITERATION = 1;
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException, InterruptedException {
+		
+		CurveTracer courbe = new CurveTracer();
+		
 		Population pop = new Population(TAILLE_POPULATION, TAILLE_INDIVIDU).initialiationPopulation();
 		GeneticAlgorithm GA = new GeneticAlgorithm();
 		
@@ -23,6 +29,15 @@ public class Main {
 			pop.TrierIndividusParFitness();
 			System.out.println("------------------ Generation " + nb_iteration + " -----------------");
 			affichagePpulation(pop);
+		}
+		
+		int afficherCourbe = JOptionPane.showOptionDialog(
+				null, "Voulez-vous voir la courbe Fitness/Iteration ?", "Courbe Fitness",
+	            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+		if (afficherCourbe == 0) {
+			courbe.draw();
+		} else {
+			System.exit(0);
 		}
 	}
 	

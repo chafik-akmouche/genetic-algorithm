@@ -1,6 +1,8 @@
 package kab.geneticalgorithm.utils;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.swing.JOptionPane;
@@ -8,7 +10,7 @@ import javax.swing.JOptionPane;
 public class Main {
 	public static final int TAILLE_POPULATION = 10;
 	public static final int TAILLE_INDIVIDU = 8;
-	public static final int NOMBRE_ITERATION = 1;
+	public static final int NOMBRE_ITERATION = 100;
 	
 	public static void main(String[] args) throws IOException, InterruptedException {
 		
@@ -16,6 +18,8 @@ public class Main {
 		
 		Population pop = new Population(TAILLE_POPULATION, TAILLE_INDIVIDU).initialiationPopulation();
 		GeneticAlgorithm GA = new GeneticAlgorithm();
+		
+		ArrayList <Double> fitnessGenerat = new ArrayList <Double>();
 		
 		int nb_iteration = 0;
 		while (nb_iteration < NOMBRE_ITERATION && pop.getIndividus()[0].getFitness() != TAILLE_INDIVIDU ) {			
@@ -27,14 +31,33 @@ public class Main {
 			
 			//pop = GA.evaluationPopulation(pop);
 			pop.TrierIndividusParFitness();
-			System.out.println("------------------ Generation " + nb_iteration + " -----------------");
+			
+			double fitnessGeneration = 0;
+			for (int x=0; x<TAILLE_POPULATION; x++) {
+				fitnessGeneration = fitnessGeneration + (pop.getIndividus()[x].getFitness());
+			}
+			
+			fitnessGenerat.add(fitnessGeneration/TAILLE_POPULATION);
+			
+			System.out.println("## Generation " + nb_iteration + " | Fitness Moyenne: "+ fitnessGeneration/TAILLE_POPULATION);
 			affichagePpulation(pop);
 		}
+		
+//		for (int t=0; t<fitnessGenerat.size(); t++) {
+//			System.out.println(fitnessGenerat.get(t));
+//		}
 		
 		int afficherCourbe = JOptionPane.showOptionDialog(
 				null, "Voulez-vous voir la courbe Fitness/Iteration ?", "Courbe Fitness",
 	            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 		if (afficherCourbe == 0) {
+			PrintWriter writer = new PrintWriter("data.dat", "UTF-8");
+			writer.println("Iteration Fitness");
+			for (int i=0; i<nb_iteration; i++) {
+				writer.println(i +" "+fitnessGenerat.get(i));
+			}
+			
+			writer.close();
 			courbe.draw();
 		} else {
 			System.exit(0);

@@ -1,8 +1,8 @@
 #!/bin/bash
-echo "set terminal png size 800,500 enhanced background rgb 'white'" > gnuplot_script
+echo "set terminal png size 1200,600 enhanced background rgb 'white'" > gnuplot_script
 echo "set output 'curve.png'" >> gnuplot_script
 echo "set autoscale" >> gnuplot_script
-echo "set title 'One-Max - fitness / iteration'" >> gnuplot_script
+echo "set title 'Courbe - fitness / iteration'" >> gnuplot_script
 echo "set xlabel 'Iteration'" >> gnuplot_script
 echo "set ylabel 'Fitness'" >> gnuplot_script
 echo "set grid" >> gnuplot_script

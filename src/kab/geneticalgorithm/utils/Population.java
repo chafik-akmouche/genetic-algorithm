@@ -37,10 +37,7 @@ public class Population {
 		});
 	}
 
-	// getter
 	public Individu[] getIndividus() {
 		return individus;
-	}
-	
-	
+	}	
 }

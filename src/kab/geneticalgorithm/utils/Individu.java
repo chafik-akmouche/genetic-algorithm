@@ -38,9 +38,7 @@ public class Individu {
 		}		
 		return fitnessIndividu;
 	}
-
 	
-	// getters
 	public int[] getGenes() {
 		fitnessChange = true;
 		return genes;

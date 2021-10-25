@@ -9,28 +9,33 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class Main {
-	public static final int TAILLE_POPULATION = 10;
+	public static final int TAILLE_POPULATION = 4;
 	public static final int TAILLE_INDIVIDU = 8;
-	public static final int NOMBRE_ITERATION = 100;
+	public static final int NOMBRE_ITERATION = 10000;
 	
 	public static void main(String[] args) throws IOException, InterruptedException {
 		
 		CurveTracer courbe = new CurveTracer();
 		
 		Population pop = new Population(TAILLE_POPULATION, TAILLE_INDIVIDU).initialiationPopulation();
+		
+		System.out.println("### Population initiale");
+		affichagePpulation(pop);
+		
 		GeneticAlgorithm GA = new GeneticAlgorithm();
 		
 		ArrayList <Double> fitnessGenerat = new ArrayList <Double>();
 		
 		int nb_iteration = 0;
-		while (nb_iteration < NOMBRE_ITERATION && pop.getIndividus()[0].getFitness() != TAILLE_INDIVIDU ) {			
+		boolean popParfaite = false;
+		while (nb_iteration < NOMBRE_ITERATION /*&& pop.getIndividus()[0].getFitness() != TAILLE_INDIVIDU*/ && !popParfaite) {			
 			nb_iteration++;
 			
-			// pop = GA.croisementSimplePopulation(pop);
-			pop = GA.croisementUniformePopulation(pop);			
-			pop = GA.mutationPopulation(pop);
+			//pop = GA.croisementSimplePopulation(pop);
+			//pop = GA.croisementUniformePopulation(pop);
+			pop = GA.croisementMonoPoint(pop);
 			
-			//pop = GA.evaluationPopulation(pop);
+			pop = GA.mutationPopulation(pop);
 			pop.TrierIndividusParFitness();
 			
 			double fitnessGeneration = 0;
@@ -40,13 +45,13 @@ public class Main {
 			
 			fitnessGenerat.add(fitnessGeneration/TAILLE_POPULATION);
 			
-			System.out.println("## Generation " + nb_iteration + " | Fitness Moyenne: "+ fitnessGeneration/TAILLE_POPULATION);
+			System.out.println("### Generation " + nb_iteration + " | Fitness Moyenne: "+ fitnessGeneration/TAILLE_POPULATION);
 			affichagePpulation(pop);
+			
+			if ((fitnessGeneration/TAILLE_POPULATION) == TAILLE_INDIVIDU) {
+				popParfaite = true;
+			}
 		}
-		
-//		for (int t=0; t<fitnessGenerat.size(); t++) {
-//			System.out.println(fitnessGenerat.get(t));
-//		}
 		
 		int afficherCourbe = JOptionPane.showOptionDialog(
 				null, "Voulez-vous voir la courbe Fitness/Iteration ?", "Courbe Fitness",

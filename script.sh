@@ -1,5 +1,4 @@
 #!/bin/bash
-
 echo "set terminal png size 800,500 enhanced background rgb 'white'" > gnuplot_script
 echo "set output 'curve.png'" >> gnuplot_script
 echo "set autoscale" >> gnuplot_script

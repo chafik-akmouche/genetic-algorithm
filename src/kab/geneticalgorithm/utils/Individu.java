@@ -18,7 +18,7 @@ public class Individu {
 	// initialiation des genes d un individu aleatoirement
 	public Individu initialiationIndividu() {
 		for (int i=0; i<genes.length; i++) {  
-			genes[i] = rand.nextInt(2);
+			genes[i] = 0;//rand.nextInt(2);
 		}
 		return this;
 	}

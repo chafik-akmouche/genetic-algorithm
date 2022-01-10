@@ -6,14 +6,21 @@ public class Population {
 	private Individu[] individus;
 	private int taille_individu;
 	
-	// constructeur
+	/**
+	 * constructeur
+	 * @param taille_population
+	 * @param taille_individu
+	 */
 	public Population(int taille_population, int taille_individu) {
 		this.taille_individu = taille_individu;
 		// creation de la population
 		individus = new Individu[taille_population];
 	}
 	
-	// initialiation de la population
+	/**
+	 * initialiation de la population
+	 * @return
+	 */
 	public Population initialiationPopulation () {
 		for (int i=0; i<individus.length; i++) {
 			// creation des individu de notre population + initialiation
@@ -24,7 +31,9 @@ public class Population {
 		return this;
 	}
 
-	// metode pour trier les individus par fitness
+	/**
+	 * metode pour trier les individus par fitness
+	 */
 	public void TrierIndividusParFitness() {
 		Arrays.sort(individus, (individu1, individu2) -> {
 			int flag = 0;

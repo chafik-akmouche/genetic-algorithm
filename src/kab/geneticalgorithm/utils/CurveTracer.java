@@ -4,9 +4,7 @@ import java.io.IOException;
 
 public class CurveTracer {
 	
-	public CurveTracer () {
-		//		
-	}
+	public CurveTracer () {}
 	
 	public void draw () {
 		Process process = null;

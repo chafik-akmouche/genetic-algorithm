@@ -15,7 +15,10 @@ public class Individu {
 		genes = new int[taille_individu];
 	}
 	
-	// initialiation des genes d un individu aleatoirement
+	/**
+	 * initialiation des genes d un individu aleatoirement
+	 * @return
+	 */
 	public Individu initialiationIndividu() {
 		for (int i=0; i<genes.length; i++) {  
 			genes[i] = 0;//rand.nextInt(2);
@@ -23,12 +26,17 @@ public class Individu {
 		return this;
 	}
 	
-	// pour afficher le contenu du tableau genes
+	/**
+	 * afficher le contenu du tableau genes
+	 */
 	public String toString () {
 		return Arrays.toString(this.genes);
 	}
 	
-	// calcul de la fitness d'un individu
+	/**
+	 * calcul de la fitness d'un individu
+	 * @return
+	 */
 	public int fitness () {
 		int fitnessIndividu = 0;
 		for (int i=0; i<genes.length; i++) {

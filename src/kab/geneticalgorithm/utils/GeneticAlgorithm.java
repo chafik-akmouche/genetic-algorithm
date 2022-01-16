@@ -2,6 +2,11 @@ package kab.geneticalgorithm.utils;
 
 import java.util.Random;
 
+/**
+ * 
+ * @author Chafik
+ *
+ */
 public class GeneticAlgorithm {
 
 	public static final int taille_selection = 2;

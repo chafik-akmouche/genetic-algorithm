@@ -3,6 +3,11 @@ package kab.geneticalgorithm.utils;
 import java.util.Arrays;
 import java.util.Random;
 
+/**
+ * 
+ * @author Chafik
+ *
+ */
 public class Individu {
 	private int[] genes;
 	private int fitness;
@@ -47,11 +52,19 @@ public class Individu {
 		return fitnessIndividu;
 	}
 	
+	/**
+	 * get genes
+	 * @return tab
+	 */
 	public int[] getGenes() {
 		fitnessChange = true;
 		return genes;
 	}
 
+	/**
+	 * get fitness
+	 * @return int
+	 */
 	public int getFitness() {
 		if (fitnessChange) {
 			fitness = fitness();

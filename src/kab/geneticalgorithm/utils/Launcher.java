@@ -8,6 +8,11 @@ import java.util.Arrays;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+/**
+ * 
+ * @author Chafik
+ *
+ */
 public class Launcher {
 		
 	public Launcher() {}
@@ -37,9 +42,9 @@ public class Launcher {
 			pop = GA.mutationPopulation(pop, operateurMutation);
 
 			//CROISEMENT & SELECTION & REMPLACEMENT
-			//pop = GA.croisementSimplePopulation(pop, S2M, R1MA);
-			//pop = GA.croisementUniformePopulation(pop, S1M, R1MA);
-			pop = GA.croisementMonoPoint(pop, operateurSelection, operateurRemplacement);			
+			pop = GA.croisementMonoPoint(pop, operateurSelection, operateurRemplacement);	
+			//pop = GA.croisementSimplePopulation(pop, operateurSelection, operateurRemplacement);
+			//pop = GA.croisementUniformePopulation(pop, operateurSelection, operateurRemplacement);
 			
 			// Trier les individus par ordre croissant des fitness
 			pop.TrierIndividusParFitness();			
@@ -53,7 +58,9 @@ public class Launcher {
 			fitnessMax.add((double) (((pop.getIndividus()[0].getFitness())*100)/Main.TAILLE_INDIVIDU));			
 			
 			// Affichage des generations & fitness moyenne
-			System.out.println("### Iteration (" + nb_iteration + ") | Fitness Moyenne de la population : "+ sommeFitnessIndividus / Main.TAILLE_POPULATION+" soit " +(((sommeFitnessIndividus/Main.TAILLE_POPULATION)*100)/Main.TAILLE_INDIVIDU)+" %");
+			System.out.println("### Iteration (" + nb_iteration + ") | "
+					+ "Fitness Moyenne de la population : "+ sommeFitnessIndividus / Main.TAILLE_POPULATION
+					+" soit " +(((sommeFitnessIndividus/Main.TAILLE_POPULATION)*100)/Main.TAILLE_INDIVIDU)+" %");
 			affichagePpulation(pop);
 			
 			// Condition d'arret
@@ -79,8 +86,6 @@ public class Launcher {
 				null, "Voulez-vous visualiser la courbe Fitness/Iteration ?", "Courbe Fitness",
 	            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 		if (afficherCourbe == 0) {
-			// ajouté juste pour les testes
-			//System.exit(0);
 			String SE = System.getProperty("os.name").toLowerCase();
 			if (SE.indexOf("nux") >= 0) {
 				PrintWriter writer = new PrintWriter("data.dat", "UTF-8");
@@ -98,14 +103,14 @@ public class Launcher {
 		} else {
 			System.exit(0);
 		}
-		/***********************************************************************************************/
-		/***************************************** FIN COURBE ******************************************/
-		/***********************************************************************************************/
+		/**
+		 * fin affichage de la courbe
+		 */
 		
 	}
 
 	/**
-	 * Affichage de la population
+	 * Méthode affichage de la population
 	 * @param population
 	 */
 	public static void affichagePpulation (Population pop) {

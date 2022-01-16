@@ -2,6 +2,11 @@ package kab.geneticalgorithm.utils;
 
 import java.util.Random;
 
+/**
+ * 
+ * @author Chafik
+ *
+ */
 public class BanditAlgorithm {
 	static Random rand = new Random();
 	

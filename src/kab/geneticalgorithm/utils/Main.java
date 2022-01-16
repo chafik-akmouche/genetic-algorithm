@@ -2,6 +2,11 @@ package kab.geneticalgorithm.utils;
 
 import java.io.IOException;
 
+/**
+ * 
+ * @author Chafik
+ *
+ */
 public class Main {
 	/**
 	 * initialisation

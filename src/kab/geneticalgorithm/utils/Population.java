@@ -46,7 +46,23 @@ public class Population {
 		});
 	}
 
+	/**
+	 * 
+	 * @return individu (tab)
+	 */
 	public Individu[] getIndividus() {
 		return individus;
-	}	
+	}
+	
+	/**
+	 * Méthode affichage de la population
+	 * @param population
+	 */
+	public void affichagePpulation (Population pop) {
+		for (int i=0; i<pop.getIndividus().length; i++) {
+			System.out.println("Individu "+ i + " : " + 
+					Arrays.toString(pop.getIndividus()[i].getGenes()) + 
+					" Fitness = " + pop.getIndividus()[i].getFitness());
+		}		
+	}
 }

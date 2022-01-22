@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Test {
 	/** initialisation*/
 	public static final int TAILLE_POPULATION = 80;
-	public static final int TAILLE_INDIVIDU = 300;
+	public static final int TAILLE_INDIVIDU = 50;
 	public static final int MAX_GENERATION = 50;
 	public static final int NB_EXECUTION = 20;
 	

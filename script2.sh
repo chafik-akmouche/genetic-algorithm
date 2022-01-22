@@ -2,9 +2,9 @@
 echo "set terminal png size 1200,600 enhanced background rgb 'white'" > gnuplot_script
 echo "set output 'curve2.png'" >> gnuplot_script
 #echo "set autoscale" >> gnuplot_script
-echo "set title 'Courbe - Fitness par opérateur / Génération'" >> gnuplot_script
+echo "set title 'Courbe - Fitness | opérateur / Génération'" >> gnuplot_script
 echo "set xlabel 'Génération'" >> gnuplot_script
-echo "set ylabel 'Fitness par opérateur (%)'" >> gnuplot_script
+echo "set ylabel 'Taux de participation des opérateurs/fitness (%)'" >> gnuplot_script
 echo "set yrange [0:100]" >> gnuplot_script
 echo "set grid" >> gnuplot_script
 #echo "set nokey" >> gnuplot_script

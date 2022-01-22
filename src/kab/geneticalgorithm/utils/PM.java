@@ -38,7 +38,15 @@ public class PM {
 		return i;
 	}	
 	
-	public static void launche(ArrayList<Integer> historiqueOp, ArrayList<Double> historiqueFit) throws FileNotFoundException, UnsupportedEncodingException {
+	/**
+	 * lancement du PM (Probability matching)
+	 * @param historiqueOp
+	 * @param hisOp
+	 * @param historiqueFit
+	 * @throws FileNotFoundException
+	 * @throws UnsupportedEncodingException
+	 */
+	public static void launche(ArrayList<Integer> historiqueOp, ArrayList<Integer> hisOp, ArrayList<Double> historiqueFit) throws FileNotFoundException, UnsupportedEncodingException {
 		/** liste des opérateurs */
 		ArrayList <Operator> listeOp = new ArrayList <Operator>();
 		/** sauvegarde des fitness */
@@ -110,30 +118,30 @@ public class PM {
 			//affichage de l'etat actuel des opérateurs
 			affichageEtatOp(listeOp);
 			
-			// Condition d'arret
+			// Condition d'arret de la boucle évolutionnaire
 			if ((sommeFitnessIndividus / Main.TAILLE_POPULATION) == Main.TAILLE_INDIVIDU) {
 				popParfaite = true;
 			}
-//			if (generation == 1) {
-//				for(int i=0; i<Main.MAX_GENERATION; i++) {
-//					historiqueFit.add(fitnessMoy.get(generation));
-//				}
-//			} else if (generation > 1) {
-//				for(int i=0; i<historiqueFit.size(); i++) {
-//					historiqueFit.set(i, (fitnessMoy.get(generation) + historiqueFit.get(i))/2);
-//				}
-//			}
 			generation++;
 		}
+		
+		//sauvegarde de l'historique de l'utilisation de chaque opérateur (en incr)
 		for(int i=0; i<listeOp.size(); i++) {
-			historiqueOp.set(i, (listeOp.get(i).getNb_fois())+historiqueOp.get(i));
+			historiqueOp.set(i, ( listeOp.get(i).getNb_fois()) + historiqueOp.get(i) );
 		}
 		
-		for(int i=0; i<fitnessMax.size(); i++) {
-			historiqueFit.set(i, (fitnessMax.get(i) + historiqueFit.get(i)));
+		//sauvegarde de l'historique de toutes les utilisations de chaque opérateur
+		for(int i=0; i<listeOp.size(); i++) {
+			hisOp.add( listeOp.get(i).getNb_fois() );
 		}
-		//affichage de la courbe
-		//Curve.draw(generation, fitnessMin, fitnessMoy, fitnessMax);
+		
+		//sauvegarde des fitness max de chaque génération
+		for(int i=0; i<fitnessMax.size(); i++) {
+			historiqueFit.set(i, ( fitnessMax.get(i) + historiqueFit.get(i) ));
+		}		
+				
+		//affichage de la courbe fitnessMin, moy et max / génération
+		//Curve.draw1(generation, fitnessMin, fitnessMoy, fitnessMax);
 	}
 	
 	/**
@@ -164,7 +172,7 @@ public class PM {
 	 * @param index
 	 */
 	public static void affichageFitness (int index, ArrayList<Double>fitnessMin, ArrayList<Double>fitnessMoy, ArrayList<Double>fitnessMax) {
-		System.out.println("Fitness Min : "+ fitnessMin.get(index)+" %\t| "+
+		System.out.println( "Fitness Min : "+ fitnessMin.get(index)+" %\t| "+
 							"Fitness Moy : "+ fitnessMoy.get(index)+" %\t| "+
 							"Fitness Max : "+ fitnessMax.get(index)+" %");
 	}

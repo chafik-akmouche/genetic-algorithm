@@ -122,6 +122,12 @@ public class PM {
 			if ((sommeFitnessIndividus / Test.TAILLE_POPULATION) == Test.TAILLE_INDIVIDU) {
 				popParfaite = true;
 			}
+			
+			//sauvegarde de l'historique de toutes les utilisations de chaque opérateur
+			for(int i=0; i<listeOp.size(); i++) {
+				hisOp.add( listeOp.get(i).getNb_fois() );
+			}
+			
 			generation++;
 		}
 		
@@ -133,10 +139,10 @@ public class PM {
 			historiqueOp.set(i, ( listeOp.get(i).getNb_fois()) + historiqueOp.get(i) );
 		}
 		
-		//sauvegarde de l'historique de toutes les utilisations de chaque opérateur
-		for(int i=0; i<listeOp.size(); i++) {
-			hisOp.add( listeOp.get(i).getNb_fois() );
-		}
+//		//sauvegarde de l'historique de toutes les utilisations de chaque opérateur
+//		for(int i=0; i<listeOp.size(); i++) {
+//			hisOp.add( listeOp.get(i).getNb_fois() );
+//		}
 		
 		//sauvegarde des fitness max de chaque génération
 		for(int i=0; i<fitnessMax.size(); i++) {

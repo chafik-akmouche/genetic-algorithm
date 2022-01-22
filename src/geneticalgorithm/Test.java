@@ -6,10 +6,10 @@ import java.util.ArrayList;
  */
 public class Test {
 	/** initialisation*/
-	public static final int TAILLE_POPULATION = 80;
-	public static final int TAILLE_INDIVIDU = 50;
-	public static final int MAX_GENERATION = 50;
-	public static final int NB_EXECUTION = 20;
+	public static final int TAILLE_POPULATION = 500;
+	public static final int TAILLE_INDIVIDU = 2000;
+	public static final int MAX_GENERATION = 1000;
+	public static final int NB_EXECUTION = 10;
 	
 	/** Opérateurs de selection*/
 	public static final String S1H = "selection1Hasard";
@@ -40,6 +40,9 @@ public class Test {
 		
 		//init liste historique operateurs
 		ArrayList<Integer> hisOp = new ArrayList<Integer>();
+		for(int i=0; i<MutationOperators.length; i++) {
+			hisOp.add(0);
+		}
 		ArrayList<Integer> historiqueOp = new ArrayList<Integer>();
 		for(int i=0; i<MutationOperators.length; i++) {
 			historiqueOp.add(0);
@@ -65,6 +68,9 @@ public class Test {
 		for(int i=0; i<historiqueFitness.size(); i++) {
 			historiqueFitness.set(i, (historiqueFitness.get(i)/NB_EXECUTION));
 		}
+		
+		//for(int i=0;i<hisOp.size(); i++)
+			System.out.println("zzz = " + hisOp.size());
 		
 		//lancement de l'AG Classique
 		ClassicAG.launch();

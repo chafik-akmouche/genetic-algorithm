@@ -88,7 +88,7 @@ public class Curve {
 			writer.println("Generation M1F M2F M3F M5F");
 				int i = 0;
 				int s = 0;
-				for (int j=0; j<historiqueOp.size(); j++) {
+				for (int j=0; j<nb_generation; j++) {
 					if(j == 0) {
 						writer.print( i + " " + historiqueOp.get(j) + " ");
 						i++;	
@@ -98,7 +98,7 @@ public class Curve {
 						s++;
 					}
 					if (s == 4) {
-						if ( i < nb_generation ) {
+						if ( i < nb_generation/**Test.MAX_GENERATION*/ ) {
 							writer.print( "\n" + i + " ");
 							i++;	
 							s = 0;

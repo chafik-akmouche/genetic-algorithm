@@ -1,4 +1,4 @@
-package kab.geneticalgorithm.utils;
+package geneticalgorithm;
 /**
  * @author Chafik
  */

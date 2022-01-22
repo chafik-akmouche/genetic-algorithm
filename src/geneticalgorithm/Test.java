@@ -1,10 +1,10 @@
-package kab.geneticalgorithm.utils;
+package geneticalgorithm;
 import java.io.IOException;
 import java.util.ArrayList;
 /**
  * @author Chafik
  */
-public class Main {
+public class Test {
 	/** initialisation*/
 	public static final int TAILLE_POPULATION = 80;
 	public static final int TAILLE_INDIVIDU = 60;
@@ -54,7 +54,7 @@ public class Main {
 		int nb_execution = 0;
 		while (nb_execution < NB_EXECUTION) {
 			System.out.println("############################ EXECUTION ("+(nb_execution+1) +") ############################");
-			PM.launche(historiqueOp, hisOp, historiqueFitness);
+			PM.launch(historiqueOp, hisOp, historiqueFitness);
 			nb_execution++;
 		}
 		
@@ -71,6 +71,6 @@ public class Main {
 		Curve.draw3(MAX_GENERATION, hisOp);
 		
 		//lancement de l'AG Classique
-		ClassicAG.lanche();
+		ClassicAG.launch();
 	}	
 }

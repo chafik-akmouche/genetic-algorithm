@@ -1,4 +1,4 @@
-package kab.geneticalgorithm.utils;
+package geneticalgorithm;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -18,9 +18,9 @@ public class PM {
 			sommeReward += op.getListeReward().get(i);
 		}		
 		if(sommeReward > 0)
-			op.setProba( Main.pMin + (1 - taille_liste_op * Main.pMin) * (op.getListeReward().get(op.getListeReward().size()-1) / (sommeReward)) );
+			op.setProba( Test.pMin + (1 - taille_liste_op * Test.pMin) * (op.getListeReward().get(op.getListeReward().size()-1) / (sommeReward)) );
 		else
-			op.setProba(Main.pInit);
+			op.setProba(Test.pInit);
 	}
 	/**
 	 * sélectionner un opérateur
@@ -46,7 +46,7 @@ public class PM {
 	 * @throws FileNotFoundException
 	 * @throws UnsupportedEncodingException
 	 */
-	public static void launche(ArrayList<Integer> historiqueOp, ArrayList<Integer> hisOp, ArrayList<Double> historiqueFit) throws FileNotFoundException, UnsupportedEncodingException {
+	public static void launch(ArrayList<Integer> historiqueOp, ArrayList<Integer> hisOp, ArrayList<Double> historiqueFit) throws FileNotFoundException, UnsupportedEncodingException {
 		/** liste des opérateurs */
 		ArrayList <Operator> listeOp = new ArrayList <Operator>();
 		/** sauvegarde des fitness */
@@ -55,13 +55,13 @@ public class PM {
 		ArrayList <Double> fitnessMax = new ArrayList <Double>();
 		
 		//initialisation individus & population
-		Population pop = new Population(Main.TAILLE_POPULATION, Main.TAILLE_INDIVIDU).initialiationPopulation();
+		Population pop = new Population(Test.TAILLE_POPULATION, Test.TAILLE_INDIVIDU).initialiationPopulation();
 		System.out.println("### Population initiale");
 		pop.affichagePpulation(pop);	
 		
 		//initialisation de la liste des opérateurs de mutation
-		for (int i=0; i<Main.MutationOperators.length; i++) {
-			listeOp.add(new Operator(Main.MutationOperators[i], Main.pInit, 0));
+		for (int i=0; i<Test.MutationOperators.length; i++) {
+			listeOp.add(new Operator(Test.MutationOperators[i], Test.pInit, 0));
 		}
 		//affichage de l'etat initial des opérateurs
 		affichageEtatOp(listeOp);
@@ -72,7 +72,7 @@ public class PM {
 				
 		int generation = 1;
 		boolean popParfaite = false;
-		while (generation <= Main.MAX_GENERATION && !popParfaite) {
+		while (generation <= Test.MAX_GENERATION && !popParfaite) {
 			System.out.println("############### GENERATION (" + generation + ") ###############");
 			//sélectionner un operateur
 			int index = PM.selectOperateur(listeOp);
@@ -84,7 +84,7 @@ public class PM {
 			pop = GA.mutationPopulation(pop, current_op);
 			
 			//croisement & selection & remplacement
-			pop = GA.croisementMonoPoint(pop, Main.S2M, Main.R2MA);	
+			pop = GA.croisementMonoPoint(pop, Test.S2M, Test.R2MA);	
 			//pop = GA.croisementSimplePopulation(pop, S2M, R2MA);
 			//pop = GA.croisementUniformePopulation(pop, S2M, R2MA);
 			
@@ -92,20 +92,20 @@ public class PM {
 			pop.TrierIndividusParFitness();		
 			//calcul de la somme des fitness des individus
 			double sommeFitnessIndividus = 0;
-			for (int x=0; x<Main.TAILLE_POPULATION; x++) {
+			for (int x=0; x<Test.TAILLE_POPULATION; x++) {
 				sommeFitnessIndividus = sommeFitnessIndividus + (pop.getIndividus()[x].getFitness());
 			}
 			//ajout des fitness
-			fitnessMin.add((double) (((pop.getIndividus()[Main.TAILLE_POPULATION-1].getFitness())*100)/Main.TAILLE_INDIVIDU));
-			fitnessMoy.add(((sommeFitnessIndividus/Main.TAILLE_POPULATION)*100)/Main.TAILLE_INDIVIDU);
-			fitnessMax.add((double) (((pop.getIndividus()[0].getFitness())*100)/Main.TAILLE_INDIVIDU));
+			fitnessMin.add((double) (((pop.getIndividus()[Test.TAILLE_POPULATION-1].getFitness())*100)/Test.TAILLE_INDIVIDU));
+			fitnessMoy.add(((sommeFitnessIndividus/Test.TAILLE_POPULATION)*100)/Test.TAILLE_INDIVIDU);
+			fitnessMax.add((double) (((pop.getIndividus()[0].getFitness())*100)/Test.TAILLE_INDIVIDU));
 					
 			pop.affichagePpulation(pop);
 			affichageFitness(generation, fitnessMin, fitnessMoy, fitnessMax);
 			System.out.println("### Opérateur sélectionné : " + current_op);
 			
 			//ajout de la récompense
-			Reward.majReward(listeOp.get(index), (int)(fitnessMoy.get(generation-1)*Main.TAILLE_INDIVIDU)/100, (int)(fitnessMoy.get(generation)*Main.TAILLE_INDIVIDU)/100);
+			Reward.majReward(listeOp.get(index), (int)(fitnessMoy.get(generation-1)*Test.TAILLE_INDIVIDU)/100, (int)(fitnessMoy.get(generation)*Test.TAILLE_INDIVIDU)/100);
 			
 			//ajout de l'amélioration
 			Reward.majAmelioration(listeOp.get(index), (double)(fitnessMoy.get(generation-1)), (double)(fitnessMoy.get(generation)));
@@ -119,7 +119,7 @@ public class PM {
 			affichageEtatOp(listeOp);
 			
 			// Condition d'arret de la boucle évolutionnaire
-			if ((sommeFitnessIndividus / Main.TAILLE_POPULATION) == Main.TAILLE_INDIVIDU) {
+			if ((sommeFitnessIndividus / Test.TAILLE_POPULATION) == Test.TAILLE_INDIVIDU) {
 				popParfaite = true;
 			}
 			generation++;

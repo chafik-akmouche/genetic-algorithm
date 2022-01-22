@@ -1,4 +1,4 @@
-package kab.geneticalgorithm.utils;
+package geneticalgorithm;
 
 import java.util.Random;
 
@@ -23,8 +23,8 @@ public class GeneticAlgorithm {
 	 */
 	public Population croisementSimplePopulation (Population pop, String selection, String remplacement) {
 		//System.out.println("### Croisement simple");
-		Population popSelectionnee = new Population(taille_selection, Main.TAILLE_INDIVIDU);		
-		Population popCroisee = new Population(pop.getIndividus().length, Main.TAILLE_INDIVIDU);
+		Population popSelectionnee = new Population(taille_selection, Test.TAILLE_INDIVIDU);		
+		Population popCroisee = new Population(pop.getIndividus().length, Test.TAILLE_INDIVIDU);
 		
 		// initialisation de la nouvelle population issue du croisement
 		for (int i=0; i<pop.getIndividus().length; i++) {
@@ -59,8 +59,8 @@ public class GeneticAlgorithm {
 	 */
 	public Population croisementMonoPoint (Population pop, String selection, String remplacement) {
 		//System.out.println("### Croisement mono-point.");
-		Population parentsSelectionnes = new Population(2, Main.TAILLE_INDIVIDU);
-		Population popCroisee = new Population(pop.getIndividus().length, Main.TAILLE_INDIVIDU);
+		Population parentsSelectionnes = new Population(2, Test.TAILLE_INDIVIDU);
+		Population popCroisee = new Population(pop.getIndividus().length, Test.TAILLE_INDIVIDU);
 		
 		// initialisation de la nouvelle population issue du croisement
 		for (int i=0; i<pop.getIndividus().length; i++) {
@@ -99,7 +99,7 @@ public class GeneticAlgorithm {
 	 */
 	public Population croisementUniformePopulation (Population pop, String selection, String remplacement) {
 		//System.out.println("### Croisement uniforme");
-		Population popCroisee = new Population(pop.getIndividus().length, Main.TAILLE_INDIVIDU);
+		Population popCroisee = new Population(pop.getIndividus().length, Test.TAILLE_INDIVIDU);
 		// initialisation de la nouvelle population issue du croisement
 		for (int i=0; i<pop.getIndividus().length; i++) {
 			popCroisee.getIndividus()[i] = pop.getIndividus()[i];
@@ -114,7 +114,7 @@ public class GeneticAlgorithm {
 				case "selection1Meilleur": individu1 = selection1Meilleur(pop);
 				break;
 			}
-			individu2 = new Individu(Main.TAILLE_INDIVIDU);  // generer un individu avec des genes aleatoires
+			individu2 = new Individu(Test.TAILLE_INDIVIDU);  // generer un individu avec des genes aleatoires
 			for (int k=0; k<individu2.getGenes().length; k++) {  
 				individu2.getGenes()[k] = rand.nextInt(2);
 			}	
@@ -134,7 +134,7 @@ public class GeneticAlgorithm {
 	 */
 	private Individu croisementSimpleIndividu (Individu individu1, Individu individu2) {
 		//System.out.println("### croisement simple ...");
-		Individu individuCroise = new Individu(Main.TAILLE_INDIVIDU);
+		Individu individuCroise = new Individu(Test.TAILLE_INDIVIDU);
 		for (int i=0; i<individu1.getGenes().length; i++) {
 			if (Math.random() < 0.5) {
 				individuCroise.getGenes()[i] = individu1.getGenes()[i];
@@ -154,21 +154,21 @@ public class GeneticAlgorithm {
 	private Population croisementMonoPointParent(Individu parent1, Individu parent2) {
 		//System.out.println("### Croisement mono-point ...");
 		// les 2 enfants issus du croisement mono-point
-		Population enfants = new Population(2, Main.TAILLE_INDIVIDU);
-		Individu enfantCroise1 = new Individu(Main.TAILLE_INDIVIDU);
-		Individu enfantCroise2 = new Individu(Main.TAILLE_INDIVIDU);
+		Population enfants = new Population(2, Test.TAILLE_INDIVIDU);
+		Individu enfantCroise1 = new Individu(Test.TAILLE_INDIVIDU);
+		Individu enfantCroise2 = new Individu(Test.TAILLE_INDIVIDU);
 		// enfant 1
-		for (int i=0; i<Main.TAILLE_INDIVIDU/2; i++) {
+		for (int i=0; i<Test.TAILLE_INDIVIDU/2; i++) {
 			enfantCroise1.getGenes()[i] = parent1.getGenes()[i];
 		}
-		for (int j=Main.TAILLE_INDIVIDU/2; j<Main.TAILLE_INDIVIDU; j++) {
+		for (int j=Test.TAILLE_INDIVIDU/2; j<Test.TAILLE_INDIVIDU; j++) {
 			enfantCroise1.getGenes()[j] = parent2.getGenes()[j];
 		}
 		// enfant 2
-		for (int k=0; k<Main.TAILLE_INDIVIDU/2; k++) {
+		for (int k=0; k<Test.TAILLE_INDIVIDU/2; k++) {
 			enfantCroise2.getGenes()[k] = parent2.getGenes()[k];
 		}
-		for (int z=Main.TAILLE_INDIVIDU/2; z<Main.TAILLE_INDIVIDU; z++) {
+		for (int z=Test.TAILLE_INDIVIDU/2; z<Test.TAILLE_INDIVIDU; z++) {
 			enfantCroise2.getGenes()[z] = parent1.getGenes()[z];
 		}
 		enfants.getIndividus()[0] = enfantCroise1;
@@ -185,7 +185,7 @@ public class GeneticAlgorithm {
 	 */
 	private Individu croisementUniformeIndividu(Individu individu1, Individu individu2) {
 		//System.out.println("### Croisement uniforme des 2 individus ...");
-		Individu individuCroise = new Individu(Main.TAILLE_INDIVIDU);
+		Individu individuCroise = new Individu(Test.TAILLE_INDIVIDU);
 		for (int i=0; i<individu1.getGenes().length; i++) {
 			if (individu2.getGenes()[i] == 1) {
 				if (individu1.getGenes()[i] == 1) {
@@ -207,7 +207,7 @@ public class GeneticAlgorithm {
 	 * @return pop mutée
 	 */
 	public Population mutationPopulation (Population pop, String operateurMutation) {
-		Population popMutee = new Population(pop.getIndividus().length, Main.TAILLE_INDIVIDU);
+		Population popMutee = new Population(pop.getIndividus().length, Test.TAILLE_INDIVIDU);
 		for (int i=0; i<pop.getIndividus().length; i++) {
 			switch(operateurMutation) {
 			case "mutation1Flip":
@@ -298,7 +298,7 @@ public class GeneticAlgorithm {
 	 */
 	private Population selection2Hasard (Population pop) {
 		//System.out.println("### Selection de 2 individus au hasard");
-		Population popSelectionnee = new Population(taille_selection, Main.TAILLE_INDIVIDU);
+		Population popSelectionnee = new Population(taille_selection, Test.TAILLE_INDIVIDU);
 		for (int i=0; i<taille_selection; i++) {
 			popSelectionnee.getIndividus()[i] = pop.getIndividus()[(int)(Math.random()*pop.getIndividus().length)];
 		}
@@ -314,8 +314,8 @@ public class GeneticAlgorithm {
 	 */
 	private Population selection2MeilleurSur5 (Population pop) {
 		//System.out.println("### Selection des 2 meilleurs individus sur 5");
-		Population selection = new Population(5, Main.TAILLE_INDIVIDU);
-		Population popSelectionnee = new Population(taille_selection, Main.TAILLE_INDIVIDU);
+		Population selection = new Population(5, Test.TAILLE_INDIVIDU);
+		Population popSelectionnee = new Population(taille_selection, Test.TAILLE_INDIVIDU);
 		// selectionner 5 aleatoirement
 		for (int i=0; i<5; i++) {
 			selection.getIndividus()[i] = pop.getIndividus()[(int)(Math.random()*pop.getIndividus().length)];
@@ -334,7 +334,7 @@ public class GeneticAlgorithm {
 	 */
 	private Population selection2Meilleur (Population pop) {
 		//System.out.println("### Selection des 2 meilleurs individus");
-		Population popSelectionnee = new Population(taille_selection, Main.TAILLE_INDIVIDU);
+		Population popSelectionnee = new Population(taille_selection, Test.TAILLE_INDIVIDU);
 		pop.TrierIndividusParFitness();
 		for (int i=0; i<taille_selection; i++) {
 			popSelectionnee.getIndividus()[i] = pop.getIndividus()[i];
@@ -349,7 +349,7 @@ public class GeneticAlgorithm {
 	 */
 	private Individu selection1Hasard(Population pop) {
 		//System.out.println("### Selection d'un individu au hasard");
-		Individu individuSelectionne = new Individu(Main.TAILLE_INDIVIDU);
+		Individu individuSelectionne = new Individu(Test.TAILLE_INDIVIDU);
 		individuSelectionne = pop.getIndividus()[rand.nextInt(pop.getIndividus().length)];
 		return individuSelectionne;
 	}
@@ -361,7 +361,7 @@ public class GeneticAlgorithm {
 	 */
 	private Individu selection1Meilleur(Population pop) {
 		//System.out.println("### Selection du meilleur individu");
-		Individu individuSelectionne = new Individu(Main.TAILLE_INDIVIDU);
+		Individu individuSelectionne = new Individu(Test.TAILLE_INDIVIDU);
 		pop.TrierIndividusParFitness();
 		individuSelectionne = pop.getIndividus()[0];
 		return individuSelectionne;
@@ -381,7 +381,7 @@ public class GeneticAlgorithm {
 	 */
 	private Population remplacement1Mauvais(Population pop, Individu individu) {
 		//System.out.println("### Remplacement de plus mauvais individu");
-		Population popIssue = new Population(pop.getIndividus().length, Main.TAILLE_INDIVIDU);
+		Population popIssue = new Population(pop.getIndividus().length, Test.TAILLE_INDIVIDU);
 		// initialisation de la nouvelle population
 		for (int j=0; j<pop.getIndividus().length; j++) {
 			popIssue.getIndividus()[j] = pop.getIndividus()[j];
@@ -402,7 +402,7 @@ public class GeneticAlgorithm {
 	 */
 	private Population remplacement2Mauvais (Population pop, Individu enfant1, Individu enfant2) {
 		//System.out.println("### Remplacement des 2 individus les plus mauvais");
-		Population popIssue = new Population(pop.getIndividus().length, Main.TAILLE_INDIVIDU);
+		Population popIssue = new Population(pop.getIndividus().length, Test.TAILLE_INDIVIDU);
 		// initialisation de la nouvelle population
 		for (int j=0; j<pop.getIndividus().length; j++) {
 			popIssue.getIndividus()[j] = pop.getIndividus()[j];
@@ -428,7 +428,7 @@ public class GeneticAlgorithm {
 	 */
 	private Population remplacement2Meilleur (Population pop, Individu enfant1, Individu enfant2) {
 		//System.out.println("### Remplacement des 2 meilleurs individus");
-		Population popIssuse = new Population(pop.getIndividus().length, Main.TAILLE_INDIVIDU);
+		Population popIssuse = new Population(pop.getIndividus().length, Test.TAILLE_INDIVIDU);
 		// initialisation de la nouvelle population
 		for (int j=0; j<pop.getIndividus().length; j++) {
 			popIssuse.getIndividus()[j] = pop.getIndividus()[j];

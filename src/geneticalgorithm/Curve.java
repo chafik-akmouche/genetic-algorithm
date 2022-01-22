@@ -1,4 +1,4 @@
-package kab.geneticalgorithm.utils;
+package geneticalgorithm;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -71,9 +71,9 @@ public class Curve {
 						if(historiqueOp.get(j) == 0) {
 							writer.print(0+" ");
 						} else {
-							//writer.print( (fitnessMax.get(i) / som) * historiqueOp.get(j) + " ");
+							writer.print( (fitnessMax.get(i) / som) * historiqueOp.get(j) + " ");
 							//writer.print( fitnessMax.get(i) * historiqueOp.get(j) + " ");
-							writer.print( fitnessMax.get(i) / historiqueOp.get(j) + " ");
+							//writer.print( fitnessMax.get(i) / historiqueOp.get(j) + " ");
 						}
 					}
 					writer.print("\n");

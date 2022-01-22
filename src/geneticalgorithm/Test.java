@@ -7,9 +7,9 @@ import java.util.ArrayList;
 public class Test {
 	/** initialisation*/
 	public static final int TAILLE_POPULATION = 80;
-	public static final int TAILLE_INDIVIDU = 60;
+	public static final int TAILLE_INDIVIDU = 300;
 	public static final int MAX_GENERATION = 50;
-	public static final int NB_EXECUTION = 10;
+	public static final int NB_EXECUTION = 20;
 	
 	/** Opérateurs de selection*/
 	public static final String S1H = "selection1Hasard";
@@ -66,11 +66,11 @@ public class Test {
 			historiqueFitness.set(i, (historiqueFitness.get(i)/NB_EXECUTION));
 		}
 		
+		//lancement de l'AG Classique
+		ClassicAG.launch();
+		
 		//affichage des courbes
 		Curve.draw2(MAX_GENERATION, historiqueFitness, historiqueOp);
 		Curve.draw3(MAX_GENERATION, hisOp);
-		
-		//lancement de l'AG Classique
-		ClassicAG.launch();
 	}	
 }

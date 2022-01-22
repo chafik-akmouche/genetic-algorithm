@@ -20,8 +20,8 @@ public class ClassicAG {
 		
 		//initialisation individus & population
 		Population pop = new Population(Test.TAILLE_POPULATION, Test.TAILLE_INDIVIDU).initialiationPopulation();
-		System.out.println("### Population initiale");
-		pop.affichagePpulation(pop);	
+		//System.out.println("### Population initiale");
+		//pop.affichagePpulation(pop);	
 		GeneticAlgorithm GA = new GeneticAlgorithm();
 		
 		//init des listes fitness
@@ -30,7 +30,7 @@ public class ClassicAG {
 		int generation = 1;
 		boolean popParfaite = false;
 		while (generation <= Test.MAX_GENERATION && !popParfaite) {
-			System.out.println("############### GENERATION (" + generation + ") ###############");			
+			//System.out.println("############### GENERATION (" + generation + ") ###############");			
 			//mutation
 			pop = GA.mutationPopulation(pop, Test.M5F);
 			
@@ -51,8 +51,8 @@ public class ClassicAG {
 			fitnessMoy.add(((sommeFitnessIndividus/Test.TAILLE_POPULATION)*100)/Test.TAILLE_INDIVIDU);
 			fitnessMax.add((double) (((pop.getIndividus()[0].getFitness())*100)/Test.TAILLE_INDIVIDU));
 					
-			pop.affichagePpulation(pop);
-			PM.affichageFitness(generation, fitnessMin, fitnessMoy, fitnessMax);
+			//pop.affichagePpulation(pop);
+			//PM.affichageFitness(generation, fitnessMin, fitnessMoy, fitnessMax);
 			
 			// Condition d'arret de la boucle évolutionnaire
 			if ((sommeFitnessIndividus / Test.TAILLE_POPULATION) == Test.TAILLE_INDIVIDU) {

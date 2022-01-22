@@ -5,7 +5,7 @@ echo "set output 'curve1.png'" >> gnuplot_script
 echo "set title 'Courbe - fitness / iteration'" >> gnuplot_script
 echo "set xlabel 'Iteration'" >> gnuplot_script
 echo "set ylabel 'Fitness (%)'" >> gnuplot_script
-echo "set yrange [0:100]" >> gnuplot_script
+#echo "set yrange [0:100]" >> gnuplot_script
 echo "set grid" >> gnuplot_script
 #echo "set nokey" >> gnuplot_script
 echo "set key outside" >> gnuplot_script

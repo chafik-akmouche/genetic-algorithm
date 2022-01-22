@@ -57,7 +57,7 @@ public class PM {
 		//initialisation individus & population
 		Population pop = new Population(Test.TAILLE_POPULATION, Test.TAILLE_INDIVIDU).initialiationPopulation();
 		System.out.println("### Population initiale");
-		pop.affichagePpulation(pop);	
+		//pop.affichagePpulation(pop);	
 		
 		//initialisation de la liste des opérateurs de mutation
 		for (int i=0; i<Test.MutationOperators.length; i++) {
@@ -100,9 +100,9 @@ public class PM {
 			fitnessMoy.add(((sommeFitnessIndividus/Test.TAILLE_POPULATION)*100)/Test.TAILLE_INDIVIDU);
 			fitnessMax.add((double) (((pop.getIndividus()[0].getFitness())*100)/Test.TAILLE_INDIVIDU));
 					
-			pop.affichagePpulation(pop);
+			//pop.affichagePpulation(pop);
 			affichageFitness(generation, fitnessMin, fitnessMoy, fitnessMax);
-			System.out.println("### Opérateur sélectionné : " + current_op);
+			//System.out.println("### Opérateur sélectionné : " + current_op);
 			
 			//ajout de la récompense
 			Reward.majReward(listeOp.get(index), (int)(fitnessMoy.get(generation-1)*Test.TAILLE_INDIVIDU)/100, (int)(fitnessMoy.get(generation)*Test.TAILLE_INDIVIDU)/100);
@@ -112,11 +112,11 @@ public class PM {
 			
 			//mise à jour de la roulette proportionnelle
 			for(int i=0; i<listeOp.size(); i++) {
-				PM.majRoulette(listeOp.get(i), listeOp.size());
+				PM.majRoulette(listeOp.get(index), listeOp.size());
 			}
 			
 			//affichage de l'etat actuel des opérateurs
-			affichageEtatOp(listeOp);
+			//affichageEtatOp(listeOp);
 			
 			// Condition d'arret de la boucle évolutionnaire
 			if ((sommeFitnessIndividus / Test.TAILLE_POPULATION) == Test.TAILLE_INDIVIDU) {
@@ -124,6 +124,9 @@ public class PM {
 			}
 			generation++;
 		}
+		
+		//affichage de l'etat actuel des opérateurs
+		affichageEtatOp(listeOp);
 		
 		//sauvegarde de l'historique de l'utilisation de chaque opérateur (en incr)
 		for(int i=0; i<listeOp.size(); i++) {
@@ -138,14 +141,12 @@ public class PM {
 		//sauvegarde des fitness max de chaque génération
 		for(int i=0; i<fitnessMax.size(); i++) {
 			historiqueFit.set(i, ( fitnessMax.get(i) + historiqueFit.get(i) ));
-		}		
-				
-		//affichage de la courbe fitnessMin, moy et max / génération
-		//Curve.draw1(generation, fitnessMin, fitnessMoy, fitnessMax);
+		}
 	}
 	
 	/**
 	 * affichage de l'etat des opérateurs
+	 * @param listeOp
 	 */
 	public static void affichageEtatOp (ArrayList<Operator> listeOp) {
 		System.out.println("### ETAT DES OPERATEURS");
@@ -170,6 +171,9 @@ public class PM {
 	/**
 	 * affichage generation & fitness (%)
 	 * @param index
+	 * @param fitnessMin
+	 * @param fitnessMoy
+	 * @param fitnessMax
 	 */
 	public static void affichageFitness (int index, ArrayList<Double>fitnessMin, ArrayList<Double>fitnessMoy, ArrayList<Double>fitnessMax) {
 		System.out.println( "Fitness Min : "+ fitnessMin.get(index)+" %\t| "+

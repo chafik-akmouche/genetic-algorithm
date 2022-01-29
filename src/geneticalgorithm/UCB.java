@@ -1,6 +1,7 @@
 package geneticalgorithm;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class UCB {
 	/**
@@ -11,8 +12,7 @@ public class UCB {
 	 * @param generation
 	 */
 	public static void majUCB(Operator op, int taille_liste_op, int c, int generation) {
-//		op.setProba( op.getListeReward().get(op.getListeReward().size()-1) + c * Math.sqrt( generation/( 2*Math.log(1+op.getNb_fois())+1 ) ) );
-		op.setProba( op.getListeReward().get(op.getListeReward().size()-1) + c * Math.sqrt( Math.log(generation)/op.getNb_fois() ) );
+		op.setProba( op.getListeReward().get( op.getListeReward().size()-1 ) + c * Math.sqrt( generation/( 2*Math.log(1+op.getNb_fois())+1 ) ) );
 	}
 	
 	/**
@@ -20,16 +20,23 @@ public class UCB {
 	 * @param listeOp
 	 * @return
 	 */
-	public static int selectOperateur(ArrayList<Operator> listeOp) {
-		double max = listeOp.get(0).getProba();
-		int maxIndex = 0;
-		for(int i=0; i<listeOp.size(); i++) {
-			if (max < listeOp.get(i).getProba()) {
-				max = listeOp.get(i).getProba();
-				maxIndex = i;
+	public static int selectOperateur(ArrayList<Operator> listeOp, int generation) {
+		Random rand = new Random();
+		int index = 0;
+		if (generation <= listeOp.size()*3) {
+			while (listeOp.get(index).getNb_fois() >= 3) {
+				index = rand.nextInt(listeOp.size());
+			}
+		} else {
+			double max = listeOp.get(0).getProba();
+			for(int i=0; i<listeOp.size(); i++) {
+				if (max < listeOp.get(i).getProba()) {
+					max = listeOp.get(i).getProba();
+					index = i;
+				}
 			}
 		}
-		return maxIndex;
+		return index;
 	}	
 
 	/**
@@ -72,9 +79,10 @@ public class UCB {
 		while (generation <= Test.MAX_GENERATION && !popParfaite) {
 			System.out.println("############### GENERATION (" + generation + ") ###############");
 			//sélectionner un operateur
-			int index = selectOperateur(listeOp);
+			int index = selectOperateur(listeOp, generation);
 			String current_op = listeOp.get(index).getName();
 			//System.out.println("Op sélectionné = " + current_op);
+			
 			listeOp.get(index).incNb_fois();
 			
 			//mutation
@@ -122,7 +130,9 @@ public class UCB {
 		}
 		
 		//affichage de l'etat actuel des opérateurs
-		//Affichage.affichageEtatOp(listeOp);
+		System.out.println("######################################################");
+		Display.affichageEtatOp(listeOp);
+		System.out.println("######################################################");
 		
 		//sauvegarde de l'historique de l'utilisation de chaque opérateur (en incr)
 		for(int i=0; i<listeOp.size(); i++) {

@@ -9,12 +9,12 @@ import java.util.ArrayList;
 public class Test {
 	/** paramètres */
 	public static final int TAILLE_POPULATION = 100;
-	public static final int TAILLE_INDIVIDU = 500;
-	public static final int MAX_GENERATION = 200;
-	public static final int NB_EXECUTION = 10;
-	private final static String AOS = "PM"; //PM
+	public static final int TAILLE_INDIVIDU = 200;
+	public static final int MAX_GENERATION = 100;
+	public static final int NB_EXECUTION = 1;
+	private final static String AOS = "UCB"; //PM
 	public static double pMin = 0.05;
-	public static final int C = 4;
+	public static final int C = 3;
 	
 	/** Opérateurs de selection*/
 	public static final String S1H = "selection1Hasard";

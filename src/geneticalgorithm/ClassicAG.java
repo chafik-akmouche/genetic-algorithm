@@ -38,10 +38,10 @@ public class ClassicAG {
 		while (generation <= Test.MAX_GENERATION && !popParfaite) {
 			System.out.println("############### GENERATION (" + generation + ") ###############");			
 			//mutation
-			pop = GA.mutationPopulation(pop, Test.M2F);
+			pop = GA.mutationPopulation(pop, Test.M5F);
 			
 			//croisement & selection & remplacement
-			pop = GA.croisementMonoPoint(pop, Test.S2M, Test.R2MA);	
+			pop = GA.croisementMonoPoint(pop, Test.S2M, Test.R2M);	
 			//pop = GA.croisementSimplePopulation(pop, S2M, R2MA);
 			//pop = GA.croisementUniformePopulation(pop, S2M, R2MA);
 			

@@ -2,8 +2,6 @@
   - Genetic algorithm to treat the One-Max problem.
   - Added a reinforcement learning algorithm to choose which operators to use.
 
-![Fitness min, moy, max / génération](curve1.png)
+![Fitness min, moy, max / génération](curve_fitness.png)
 
-![Fitness|opérateur / génération](curve2.png)
-
-![Moyenne d'utilisation de chaque opérateur / génération](curve3.png)
+![utilisation de chaque opérateurn](histogrammeOp.png)

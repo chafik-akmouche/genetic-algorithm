@@ -6,17 +6,17 @@ public class Operator {
 	private String name;
 	private double proba;
 	private int nb_fois;
-	private ArrayList<Integer> listeReward;
+	private ArrayList<Double> listeReward;
 	private ArrayList<Double> listeAmelioration;
-	private ArrayList<Integer> generations;
 	
 	public Operator (String name, double proba, int nb_fois) {
 		this.name = name;
 		this.proba = proba;
 		this.nb_fois = nb_fois;
-		this.listeReward = new ArrayList<Integer>();
+		this.listeReward = new ArrayList<Double>();
 		this.listeAmelioration = new ArrayList<Double>();
-		this.generations = new ArrayList<Integer>();		
+		//init liste des rewards
+		listeReward.add(0, 0.0);
 	}
 
 	public String getName() {
@@ -47,11 +47,11 @@ public class Operator {
 		this.nb_fois++;
 	}
 
-	public ArrayList<Integer> getListeReward() {
+	public ArrayList<Double> getListeReward() {
 		return listeReward;
 	}
 
-	public void addToListeReward(int reward) {
+	public void addToListeReward(double reward) {
 		this.listeReward.add(reward);
 	}
 
@@ -61,13 +61,5 @@ public class Operator {
 
 	public void addToListeAmelioration(double amelioration) {
 		this.listeAmelioration.add(amelioration);
-	}
-
-	public ArrayList<Integer> getGenerations() {
-		return generations;
-	}
-	
-	public void addToGenerations(int generation) {
-		this.generations.add(generation);
 	}
 }

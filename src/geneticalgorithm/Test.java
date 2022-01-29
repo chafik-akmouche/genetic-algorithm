@@ -1,15 +1,20 @@
 package geneticalgorithm;
+
 import java.io.IOException;
 import java.util.ArrayList;
+
 /**
  * @author Chafik
  */
 public class Test {
-	/** initialisation*/
-	public static final int TAILLE_POPULATION = 500;
-	public static final int TAILLE_INDIVIDU = 2000;
-	public static final int MAX_GENERATION = 1000;
+	/** paramètres */
+	public static final int TAILLE_POPULATION = 100;
+	public static final int TAILLE_INDIVIDU = 500;
+	public static final int MAX_GENERATION = 200;
 	public static final int NB_EXECUTION = 10;
+	private final static String AOS = "PM"; //PM
+	public static double pMin = 0.05;
+	public static final int C = 4;
 	
 	/** Opérateurs de selection*/
 	public static final String S1H = "selection1Hasard";
@@ -32,51 +37,42 @@ public class Test {
 	/** liste des opérateurs de mutation */
 	public static final String[] MutationOperators = {M1F, M2F, M3F, M5F};
 	
-	/** proba init & proba min */
-	public static double pInit = (double)1/MutationOperators.length;
-	public static double pMin = 0.05;
+	/** proba / val init */
+	public static double pInitPM = (double)1/MutationOperators.length;
+	public static double valInitUCB = 0.0;
 	
+	@SuppressWarnings("unused")
 	public static void main(String[] args) throws IOException, InterruptedException {
+		ArrayList<Double> historiqueOp = new ArrayList<Double>();
+		for(int i=0; i<MutationOperators.length; i++)
+			historiqueOp.add(0.0);
 		
-		//init liste historique operateurs
-		ArrayList<Integer> hisOp = new ArrayList<Integer>();
-		for(int i=0; i<MutationOperators.length; i++) {
-			hisOp.add(0);
-		}
-		ArrayList<Integer> historiqueOp = new ArrayList<Integer>();
-		for(int i=0; i<MutationOperators.length; i++) {
-			historiqueOp.add(0);
-		}
-		
-		//init liste fitness
-		ArrayList<Double> historiqueFitness = new ArrayList<Double>();
-		for (int i=0; i<=MAX_GENERATION; i++) {
-			historiqueFitness.add(0.0);
-		}
+		//creation et init liste historique fitness
+		ArrayList<Double> historiqueFitnessMax = new ArrayList<Double>();
+		ArrayList<Double> historiqueFitnessMoy = new ArrayList<Double>();
+		ArrayList<Double> historiqueFitnessMin = new ArrayList<Double>();
 		
 		int nb_execution = 0;
 		while (nb_execution < NB_EXECUTION) {
-			System.out.println("############################ EXECUTION ("+(nb_execution+1) +") ############################");
-			PM.launch(historiqueOp, hisOp, historiqueFitness);
+			System.out.println("### EXECUTION ("+(nb_execution+1) +")");
+			if (AOS == "PM") {
+				PM.launch(historiqueOp, historiqueFitnessMin, historiqueFitnessMoy, historiqueFitnessMax);
+			} else {
+				UCB.launch(historiqueOp, historiqueFitnessMin, historiqueFitnessMoy, historiqueFitnessMax, C);
+			}
 			nb_execution++;
 		}
 		
+		//calculer le nombre moyen d'utilisation de chaque operateur
 		for (int i=0; i<historiqueOp.size(); i++) {
 			historiqueOp.set(i, historiqueOp.get(i)/NB_EXECUTION);
 		}
 		
-		for(int i=0; i<historiqueFitness.size(); i++) {
-			historiqueFitness.set(i, (historiqueFitness.get(i)/NB_EXECUTION));
-		}
-		
-		//for(int i=0;i<hisOp.size(); i++)
-			System.out.println("zzz = " + hisOp.size());
-		
-		//lancement de l'AG Classique
+		//courbe fitness 
+		Curve.fitnessBandit(historiqueFitnessMax.size(), historiqueFitnessMin, historiqueFitnessMoy, historiqueFitnessMax);
+		//lancement de l'AG Classique & courbe fitness
 		ClassicAG.launch();
-		
-		//affichage des courbes
-		Curve.draw2(MAX_GENERATION, historiqueFitness, historiqueOp);
-		Curve.draw3(MAX_GENERATION, hisOp);
+		//histogramme d'utilisation des opérateurs
+		Curve.histogrammeOp(MutationOperators, historiqueOp);
 	}	
 }

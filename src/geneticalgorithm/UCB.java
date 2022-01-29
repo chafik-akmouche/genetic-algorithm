@@ -1,55 +1,50 @@
 package geneticalgorithm;
-import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
+
 import java.util.ArrayList;
-/**
- * Sélection avec probability matching (PM)
- * @author Chafik
- */
-public class PM {
+
+public class UCB {
 	/**
-	 * mettre à jour les probabilité de chaque opérateur
+	 * MAJ UCB
 	 * @param op
 	 * @param taille_liste_op
+	 * @param c
+	 * @param generation
 	 */
-	public static void majRoulette(Operator op, int taille_liste_op) {
-		double sommeReward = 0.0;
-		for (int i=0; i<op.getListeReward().size(); i++) {
-			sommeReward += op.getListeReward().get(i);
-		}		
-		if(sommeReward > 0)
-			op.setProba( Test.pMin + (1 - taille_liste_op * Test.pMin) * (op.getListeReward().get(op.getListeReward().size()-1) / (sommeReward)) );
-		else
-			op.setProba(Test.pInitPM);
+	public static void majUCB(Operator op, int taille_liste_op, int c, int generation) {
+//		op.setProba( op.getListeReward().get(op.getListeReward().size()-1) + c * Math.sqrt( generation/( 2*Math.log(1+op.getNb_fois())+1 ) ) );
+		op.setProba( op.getListeReward().get(op.getListeReward().size()-1) + c * Math.sqrt( Math.log(generation)/op.getNb_fois() ) );
 	}
-	/**
-	 * sélectionner un opérateur
-	 * @param listeOp
-	 * @return index
-	 */
-	public static int selectOperateur(ArrayList<Operator> listeOp) {
-		double r = Math.random();
-		double sommeProba = 0;
-		int i = 0;
-		while (sommeProba < r && i < listeOp.size()-1) {
-			sommeProba += listeOp.get(i).getProba();
-			if(sommeProba < r) i++;
-		}
-		return i;
-	}	
 	
 	/**
-	 * lancement du PM (Probability matching)
-	 * @param historiqueOp
-	 * @param hisOp
-	 * @param historiqueFitnessMax
-	 * @throws FileNotFoundException
-	 * @throws UnsupportedEncodingException
+	 * Sélection d'un opérateur
+	 * @param listeOp
+	 * @return
 	 */
-	public static void launch(ArrayList<Double> historiqueOp, ArrayList<Double> historiqueFitnessMin, ArrayList<Double> historiqueFitnessMoy, ArrayList<Double> historiqueFitnessMax) throws FileNotFoundException, UnsupportedEncodingException {
+	public static int selectOperateur(ArrayList<Operator> listeOp) {
+		double max = listeOp.get(0).getProba();
+		int maxIndex = 0;
+		for(int i=0; i<listeOp.size(); i++) {
+			if (max < listeOp.get(i).getProba()) {
+				max = listeOp.get(i).getProba();
+				maxIndex = i;
+			}
+		}
+		return maxIndex;
+	}	
+
+	/**
+	 * lancement UCB
+	 * @param historiqueOp
+	 * @param historiqueFitnessMin
+	 * @param historiqueFitnessMoy
+	 * @param historiqueFitnessMax
+	 * @param c
+	 */
+	public static void launch(ArrayList<Double> historiqueOp, ArrayList<Double> historiqueFitnessMin, ArrayList<Double> historiqueFitnessMoy, ArrayList<Double> historiqueFitnessMax, int c) {
 		System.out.println("#################################################");
-		System.out.println("##################      PM      #################");
+		System.out.println("#################      UCB      #################");
 		System.out.println("#################################################\n");
+		
 		/** liste des opérateurs */
 		ArrayList <Operator> listeOp = new ArrayList <Operator>();
 		/** sauvegarde des fitness */
@@ -59,15 +54,11 @@ public class PM {
 		
 		//initialisation individus & population
 		Population pop = new Population(Test.TAILLE_POPULATION, Test.TAILLE_INDIVIDU).initialiationPopulation();
-		System.out.println("### Population initiale");
-		Display.affichagePpulation(pop);	
 		
 		//init de la liste des opérateurs de mutation
 		for (int i=0; i<Test.MutationOperators.length; i++) {
-			listeOp.add(new Operator(Test.MutationOperators[i], Test.pInitPM, 0));
+			listeOp.add(new Operator(Test.MutationOperators[i], Test.valInitUCB, 0));
 		}
-		//affichage de l'etat initial des opérateurs
-		Display.affichageEtatOp(listeOp);
 		
 		GeneticAlgorithm GA = new GeneticAlgorithm();
 		
@@ -75,14 +66,15 @@ public class PM {
 		fitnessMin.add(0.0);	
 		fitnessMoy.add(0.0);	
 		fitnessMax.add(0.0);
-				
+		
 		int generation = 1;
 		boolean popParfaite = false;
 		while (generation <= Test.MAX_GENERATION && !popParfaite) {
 			System.out.println("############### GENERATION (" + generation + ") ###############");
 			//sélectionner un operateur
-			int index = PM.selectOperateur(listeOp);
+			int index = selectOperateur(listeOp);
 			String current_op = listeOp.get(index).getName();
+			//System.out.println("Op sélectionné = " + current_op);
 			listeOp.get(index).incNb_fois();
 			
 			//mutation
@@ -104,7 +96,7 @@ public class PM {
 			fitnessMin.add((double) (pop.getIndividus()[Test.TAILLE_POPULATION-1].getFitness()));
 			fitnessMoy.add((double)sommeFitnessIndividus/Test.TAILLE_POPULATION);
 			fitnessMax.add((double) (pop.getIndividus()[0].getFitness()));
-					
+			
 			Display.affichagePpulation(pop);
 			Display.affichageFitness(generation, fitnessMin, fitnessMoy, fitnessMax);
 			
@@ -114,11 +106,10 @@ public class PM {
 			//ajout de la récompense
 			Reward.majReward( listeOp.get(index), listeOp.get(index).getNb_fois(), listeOp.get(index).getListeAmelioration().get(listeOp.get(index).getNb_fois()-1) );
 			
-			//mise à jour de la roulette proportionnelle
+			//mise à jour de la val UCB
 			for(int i=0; i<listeOp.size(); i++) {
-				PM.majRoulette(listeOp.get(index), listeOp.size());
+				majUCB(listeOp.get(index), listeOp.size(), c, generation);
 			}
-			
 			//affichage de l'etat actuel des opérateurs
 			Display.affichageEtatOp(listeOp);
 			
@@ -147,4 +138,5 @@ public class PM {
 			}
 		}
 	}
+
 }

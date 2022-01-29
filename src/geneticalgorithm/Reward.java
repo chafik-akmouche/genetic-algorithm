@@ -4,17 +4,16 @@ package geneticalgorithm;
  */
 public class Reward {
 	/**
-	 * ajouter l'amélioration (en %) à l'opérateur adéquat
+	 * ajouter l'amélioration à l'opérateur adéquat
 	 * @param op
 	 * @param fitness_old
 	 * @param fitness_new
 	 */
 	public static void majAmelioration(Operator op, double fitness_old, double fitness_new) {
-		if (fitness_new <= fitness_old) {
+		if (fitness_new <= fitness_old) 
 			op.addToListeAmelioration(0.0);
-		} else {
-			op.addToListeAmelioration((double)(fitness_new-fitness_old));
-		}
+		else 
+			op.addToListeAmelioration((double)(fitness_new - fitness_old));
 	}
 	
 	/**
@@ -23,11 +22,7 @@ public class Reward {
 	 * @param fitness_old
 	 * @param fitness_new
 	 */
-	public static void majReward(Operator op, int fitness_old, int fitness_new) {
-		if (fitness_new <= fitness_old) {
-			op.addToListeReward(0);
-		} else {
-			op.addToListeReward(fitness_new - fitness_old);
-		}
+	public static void majReward(Operator op, int index, double amelioration) {
+		op.getListeReward().add(index, (((op.getNb_fois() - 1) * op.getListeReward().get(index - 1)) + amelioration) / op.getNb_fois() );
 	}
 }

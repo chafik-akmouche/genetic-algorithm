@@ -13,6 +13,10 @@ public class ClassicAG {
 	 * @throws UnsupportedEncodingException
 	 */
 	public static void launch () throws FileNotFoundException, UnsupportedEncodingException {
+		
+		System.out.println("#################################################");
+		System.out.println("################## AG CLASSIQUE #################");
+		System.out.println("#################################################\n");
 		/** sauvegarde des fitness */
 		ArrayList <Double> fitnessMin = new ArrayList <Double>();
 		ArrayList <Double> fitnessMoy = new ArrayList <Double>();
@@ -20,19 +24,21 @@ public class ClassicAG {
 		
 		//initialisation individus & population
 		Population pop = new Population(Test.TAILLE_POPULATION, Test.TAILLE_INDIVIDU).initialiationPopulation();
-		//System.out.println("### Population initiale");
-		//pop.affichagePpulation(pop);	
+		System.out.println("### Population initiale");
+		Display.affichagePpulation(pop);	
 		GeneticAlgorithm GA = new GeneticAlgorithm();
 		
 		//init des listes fitness
-		fitnessMin.add(0.0);	fitnessMoy.add(0.0);	fitnessMax.add(0.0);
+		fitnessMin.add(0.0);	
+		fitnessMoy.add(0.0);	
+		fitnessMax.add(0.0);
 				
 		int generation = 1;
 		boolean popParfaite = false;
 		while (generation <= Test.MAX_GENERATION && !popParfaite) {
-			//System.out.println("############### GENERATION (" + generation + ") ###############");			
+			System.out.println("############### GENERATION (" + generation + ") ###############");			
 			//mutation
-			pop = GA.mutationPopulation(pop, Test.M5F);
+			pop = GA.mutationPopulation(pop, Test.M2F);
 			
 			//croisement & selection & remplacement
 			pop = GA.croisementMonoPoint(pop, Test.S2M, Test.R2MA);	
@@ -46,23 +52,30 @@ public class ClassicAG {
 			for (int x=0; x<Test.TAILLE_POPULATION; x++) {
 				sommeFitnessIndividus = sommeFitnessIndividus + (pop.getIndividus()[x].getFitness());
 			}
+			
 			//ajout des fitness
-			fitnessMin.add((double) (((pop.getIndividus()[Test.TAILLE_POPULATION-1].getFitness())*100)/Test.TAILLE_INDIVIDU));
-			fitnessMoy.add(((sommeFitnessIndividus/Test.TAILLE_POPULATION)*100)/Test.TAILLE_INDIVIDU);
-			fitnessMax.add((double) (((pop.getIndividus()[0].getFitness())*100)/Test.TAILLE_INDIVIDU));
+			fitnessMin.add((double) (pop.getIndividus()[Test.TAILLE_POPULATION-1].getFitness()));
+			fitnessMoy.add(sommeFitnessIndividus/Test.TAILLE_POPULATION);
+			fitnessMax.add((double) (pop.getIndividus()[0].getFitness()));
 					
-			//pop.affichagePpulation(pop);
-			//PM.affichageFitness(generation, fitnessMin, fitnessMoy, fitnessMax);
+			Display.affichagePpulation(pop);
+			Display.affichageFitness(generation, fitnessMin, fitnessMoy, fitnessMax);
 			
 			// Condition d'arret de la boucle évolutionnaire
 			if ((sommeFitnessIndividus / Test.TAILLE_POPULATION) == Test.TAILLE_INDIVIDU) {
 				popParfaite = true;
 			}
 			generation++;
-		}	
-				
+		}
+		
+		//convertir les fitness en (%)
+//		for(int i=0; i<fitnessMax.size(); i++) {
+//			fitnessMax.set(i, (double)((fitnessMax.get(i)*100) / Test.TAILLE_INDIVIDU));
+//			fitnessMoy.set(i, (double)((fitnessMoy.get(i)*100) / Test.TAILLE_INDIVIDU));
+//			fitnessMin.set(i, (double)((fitnessMin.get(i)*100) / Test.TAILLE_INDIVIDU));
+//		}
+		
 		//affichage de la courbe fitnessMin, moy et max / génération
-		Curve.draw1(generation, fitnessMin, fitnessMoy, fitnessMax);
+		Curve.fitnessClassicAG(generation, fitnessMin, fitnessMoy, fitnessMax);
 	}
-
 }

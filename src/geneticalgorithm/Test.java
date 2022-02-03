@@ -9,10 +9,10 @@ import java.util.ArrayList;
 public class Test {
 	/** paramètres */
 	public static final int TAILLE_POPULATION = 100;
-	public static final int TAILLE_INDIVIDU = 400;
+	public static final int TAILLE_INDIVIDU = 350;
 	public static final int MAX_GENERATION = 200;
-	public static final int NB_EXECUTION = 10;
-	private final static String AOS = "PM"; //PM
+	public static final int NB_EXECUTION = 5;
+	private final static String AOS = "PM"; //UCB
 	public static double pMin = 0.05;
 	public static final int C = 3;
 	
@@ -54,11 +54,16 @@ public class Test {
 		
 		int nb_execution = 0;
 		while (nb_execution < NB_EXECUTION) {
-			System.out.println("### EXECUTION ("+(nb_execution+1) +")");
+			System.out.println("### " + AOS + " ### EXECUTION ("+(nb_execution+1) +")");
 			if (AOS == "PM") {
-				PM.launch(historiqueOp, historiqueFitnessMin, historiqueFitnessMoy, historiqueFitnessMax);
+				PM.launch(historiqueOp, historiqueFitnessMin, historiqueFitnessMoy, historiqueFitnessMax, nb_execution);
 			} else {
-				UCB.launch(historiqueOp, historiqueFitnessMin, historiqueFitnessMoy, historiqueFitnessMax, C);
+				UCB.launch(historiqueOp, historiqueFitnessMin, historiqueFitnessMoy, historiqueFitnessMax, C, nb_execution);
+			}
+			for(int index=0; index<historiqueFitnessMin.size(); index++) {
+				System.out.println( "Historique Fitness Min : "+ historiqueFitnessMin.get(index)+"\t| "+
+					"Historique Fitness Moy : "+ historiqueFitnessMoy.get(index)+"\t| "+
+					"Historique Fitness Max : "+ historiqueFitnessMax.get(index));
 			}
 			nb_execution++;
 		}
@@ -71,7 +76,7 @@ public class Test {
 		//courbe fitness 
 		Curve.fitnessBandit(historiqueFitnessMax.size(), historiqueFitnessMin, historiqueFitnessMoy, historiqueFitnessMax);
 		//lancement de l'AG Classique & courbe fitness
-		ClassicAG.launch();
+		ClassicAG.launch(NB_EXECUTION);
 		//histogramme d'utilisation des opérateurs
 		Curve.histogrammeOp(MutationOperators, historiqueOp);
 	}	

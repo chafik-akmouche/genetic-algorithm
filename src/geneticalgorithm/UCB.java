@@ -46,11 +46,9 @@ public class UCB {
 	 * @param historiqueFitnessMoy
 	 * @param historiqueFitnessMax
 	 * @param c
+	 * @param nb_execution
 	 */
-	public static void launch(ArrayList<Double> historiqueOp, ArrayList<Double> historiqueFitnessMin, ArrayList<Double> historiqueFitnessMoy, ArrayList<Double> historiqueFitnessMax, int c) {
-		System.out.println("#################################################");
-		System.out.println("#################      UCB      #################");
-		System.out.println("#################################################\n");
+	public static void launch(ArrayList<Double> historiqueOp, ArrayList<Double> historiqueFitnessMin, ArrayList<Double> historiqueFitnessMoy, ArrayList<Double> historiqueFitnessMax, int c, int nb_execution) {
 		
 		/** liste des opérateurs */
 		ArrayList <Operator> listeOp = new ArrayList <Operator>();
@@ -139,14 +137,27 @@ public class UCB {
 			historiqueOp.set(i, ( (double)(listeOp.get(i).getNb_fois()) + historiqueOp.get(i)) );
 		}
 		
-		//sauvegarde de l'historique des fitness
-		if (historiqueFitnessMax.size() == 0) {
-			for(int i=0; i<fitnessMax.size(); i++) {
-				historiqueFitnessMin.add( fitnessMin.get(i) );
-				historiqueFitnessMoy.add( fitnessMoy.get(i) );
-				historiqueFitnessMax.add( fitnessMax.get(i) );
+		// sauvegarde de la moyenne des fitness
+		if (nb_execution == 0) {
+			for(int i=0; i<fitnessMin.size(); i++) {
+				historiqueFitnessMin.add(fitnessMin.get(i));
+				historiqueFitnessMoy.add(fitnessMoy.get(i));
+				historiqueFitnessMax.add(fitnessMax.get(i));
+			}
+		} else {
+			if (fitnessMin.size() > historiqueFitnessMin.size()) {
+				for(int i=0; i<historiqueFitnessMin.size(); i++) {
+					historiqueFitnessMin.set(i, (double)(historiqueFitnessMin.get(i)+fitnessMin.get(i))/2);
+					historiqueFitnessMoy.set(i, (double)(historiqueFitnessMoy.get(i)+fitnessMoy.get(i))/2);
+					historiqueFitnessMax.set(i, (double)(historiqueFitnessMax.get(i)+fitnessMax.get(i))/2);
+				}
+			} else {
+				for(int i=0; i<fitnessMin.size(); i++) {
+					historiqueFitnessMin.set(i, (double)(historiqueFitnessMin.get(i)+fitnessMin.get(i))/2);
+					historiqueFitnessMoy.set(i, (double)(historiqueFitnessMoy.get(i)+fitnessMoy.get(i))/2);
+					historiqueFitnessMax.set(i, (double)(historiqueFitnessMax.get(i)+fitnessMax.get(i))/2);
+				}
 			}
 		}
 	}
-
 }

@@ -43,13 +43,12 @@ public class PM {
 	 * @param historiqueOp
 	 * @param hisOp
 	 * @param historiqueFitnessMax
+	 * @param nb_execution
 	 * @throws FileNotFoundException
 	 * @throws UnsupportedEncodingException
 	 */
-	public static void launch(ArrayList<Double> historiqueOp, ArrayList<Double> historiqueFitnessMin, ArrayList<Double> historiqueFitnessMoy, ArrayList<Double> historiqueFitnessMax) throws FileNotFoundException, UnsupportedEncodingException {
-		System.out.println("#################################################");
-		System.out.println("##################      PM      #################");
-		System.out.println("#################################################\n");
+	public static void launch(ArrayList<Double> historiqueOp, ArrayList<Double> historiqueFitnessMin, ArrayList<Double> historiqueFitnessMoy, ArrayList<Double> historiqueFitnessMax, int nb_execution) 
+			throws FileNotFoundException, UnsupportedEncodingException {
 		/** liste des opérateurs */
 		ArrayList <Operator> listeOp = new ArrayList <Operator>();
 		/** sauvegarde des fitness */
@@ -59,15 +58,15 @@ public class PM {
 		
 		//initialisation individus & population
 		Population pop = new Population(Test.TAILLE_POPULATION, Test.TAILLE_INDIVIDU).initialiationPopulation();
-		System.out.println("### Population initiale");
-		Display.affichagePpulation(pop);	
+		//System.out.println("### Population initiale");
+		//Display.affichagePpulation(pop);	
 		
 		//init de la liste des opérateurs de mutation
 		for (int i=0; i<Test.MutationOperators.length; i++) {
 			listeOp.add(new Operator(Test.MutationOperators[i], Test.pInitPM, 0));
 		}
 		//affichage de l'etat initial des opérateurs
-		Display.affichageEtatOp(listeOp);
+		//Display.affichageEtatOp(listeOp);
 		
 		GeneticAlgorithm GA = new GeneticAlgorithm();
 		
@@ -105,7 +104,7 @@ public class PM {
 			fitnessMoy.add((double)sommeFitnessIndividus/Test.TAILLE_POPULATION);
 			fitnessMax.add((double) (pop.getIndividus()[0].getFitness()));
 					
-			Display.affichagePpulation(pop);
+			//Display.affichagePpulation(pop);
 			Display.affichageFitness(generation, fitnessMin, fitnessMoy, fitnessMax);
 			
 			//ajout de l'amélioration (on utilise la fitness en %)
@@ -120,7 +119,7 @@ public class PM {
 			}
 			
 			//affichage de l'etat actuel des opérateurs
-			Display.affichageEtatOp(listeOp);
+			//Display.affichageEtatOp(listeOp);
 			
 			// Condition d'arret de la boucle évolutionnaire
 			if ((sommeFitnessIndividus / Test.TAILLE_POPULATION) == Test.TAILLE_INDIVIDU) {
@@ -138,13 +137,36 @@ public class PM {
 			historiqueOp.set(i, ( (double)(listeOp.get(i).getNb_fois()) + historiqueOp.get(i)) );
 		}
 		
-		//sauvegarde de l'historique des fitness
-		if (historiqueFitnessMax.size() == 0) {
-			for(int i=0; i<fitnessMax.size(); i++) {
-				historiqueFitnessMin.add( fitnessMin.get(i) );
-				historiqueFitnessMoy.add( fitnessMoy.get(i) );
-				historiqueFitnessMax.add( fitnessMax.get(i) );
+		// sauvegarde de la moyenne des fitness
+		if (nb_execution == 0) {
+			for(int i=0; i<fitnessMin.size(); i++) {
+				historiqueFitnessMin.add(fitnessMin.get(i));
+				historiqueFitnessMoy.add(fitnessMoy.get(i));
+				historiqueFitnessMax.add(fitnessMax.get(i));
+			}
+		} else {
+			if (fitnessMin.size() > historiqueFitnessMin.size()) {
+				for(int i=0; i<historiqueFitnessMin.size(); i++) {
+					historiqueFitnessMin.set(i, (double)(historiqueFitnessMin.get(i)+fitnessMin.get(i))/2);
+					historiqueFitnessMoy.set(i, (double)(historiqueFitnessMoy.get(i)+fitnessMoy.get(i))/2);
+					historiqueFitnessMax.set(i, (double)(historiqueFitnessMax.get(i)+fitnessMax.get(i))/2);
+				}
+			} else {
+				for(int i=0; i<fitnessMin.size(); i++) {
+					historiqueFitnessMin.set(i, (double)(historiqueFitnessMin.get(i)+fitnessMin.get(i))/2);
+					historiqueFitnessMoy.set(i, (double)(historiqueFitnessMoy.get(i)+fitnessMoy.get(i))/2);
+					historiqueFitnessMax.set(i, (double)(historiqueFitnessMax.get(i)+fitnessMax.get(i))/2);
+				}
 			}
 		}
+		
+		//sauvegarde de l'historique des fitness
+//		if (historiqueFitnessMax.size() == 0) {
+//			for(int i=0; i<fitnessMax.size(); i++) {
+//				historiqueFitnessMin.add( fitnessMin.get(i) );
+//				historiqueFitnessMoy.add( fitnessMoy.get(i) );
+//				historiqueFitnessMax.add( fitnessMax.get(i) );
+//			}
+//		}
 	}
 }

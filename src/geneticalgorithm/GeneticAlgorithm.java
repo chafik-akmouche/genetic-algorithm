@@ -78,8 +78,7 @@ public class GeneticAlgorithm {
 			Individu parent1 = parentsSelectionnes.getIndividus()[0];
 			Individu parent2 = parentsSelectionnes.getIndividus()[1];
 			// affichage
-			//System.out.println("Parents selectionnes");
-			//Launcher.affichagePpulation(parentsSelectionnes);			
+			//System.out.println("Parents selectionnes");			
 			switch (remplacement) {
 				case "remplacement2Mauvais": popCroisee = remplacement2Mauvais (popCroisee, croisementMonoPointParent (parent1, parent2).getIndividus()[0], croisementMonoPointParent (parent1, parent2).getIndividus()[1]);
 				break;

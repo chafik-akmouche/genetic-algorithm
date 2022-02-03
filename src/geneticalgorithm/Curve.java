@@ -30,7 +30,7 @@ public class Curve {
 				writer.println(i +" "+fitnessMin.get(i)+" "+fitnessMoy.get(i)+" "+fitnessMax.get(i));
 			}				
 			writer.close();
-			Curve.shellExec("script_fitness");
+			//Curve.shellExec("script_fitness");
 		} else {
 			JOptionPane.showMessageDialog(new JFrame(), "Vous êtes sur "+SE+".\nNous ne pouvons malheureusement pas générer la courbe.", "Erreur - "+SE, JOptionPane.ERROR_MESSAGE);
 			System.exit(0);
@@ -73,55 +73,23 @@ public class Curve {
 			PrintWriter writer = new PrintWriter("data_histogrammeOp.dat", "UTF-8");
 			writer.println("Opérateur Nombre d'utilisation");
 			for (int i=0; i<mutationOperators.length; i++) {
-				writer.println(i +" "+historiqueOp.get(i)); //mutationOperators[i]
+				writer.println(i +" "+historiqueOp.get(i));
 			}				
 			writer.close();
-			Curve.shellExec("script_histogramme");
+			//Curve.shellExec("script_histogramme");
 		} else {
 			JOptionPane.showMessageDialog(new JFrame(), "Vous êtes sur "+SE+".\nNous ne pouvons malheureusement pas générer la courbe.", "Erreur - "+SE, JOptionPane.ERROR_MESSAGE);
 			System.exit(0);
 		}
 	}
 	
-	
-	
 	/**
-	 * affichage de la courbe fitness par opérateur / génération
-	 * @param nb_generation
-	 * @param fitnessMax
-	 * @param historiqueOp
-	 * @throws FileNotFoundException
-	 * @throws UnsupportedEncodingException
+	 * Tracer les courbe
 	 */
-//	public static void draw2(int nb_generation, ArrayList<Double> fitnessMax, ArrayList<Double> historiqueOp) throws FileNotFoundException, UnsupportedEncodingException {
-//		double som = 0;
-//		for (int s=0; s<historiqueOp.size(); s++) {
-//			som = som + historiqueOp.get(s);
-//		}
-//		String SE = System.getProperty("os.name").toLowerCase();
-//		if (SE.indexOf("nux") >= 0) {
-//			PrintWriter writer = new PrintWriter("data2.dat", "UTF-8");
-//			writer.println("Génération F(M1F) F(M2F) F(M3F) F(M5F)");
-//			for (int i=0; i<nb_generation; i++) {
-//				writer.print(i+" ");
-//				for (int j=0; j<historiqueOp.size(); j++) {
-//					if(historiqueOp.get(j) == 0) {
-//						writer.print(0+" ");
-//					} else {
-//						//writer.print( (fitnessMax.get(i) / som) * historiqueOp.get(j) + " ");
-//						//writer.print( fitnessMax.get(i) * historiqueOp.get(j) + " ");
-//						writer.print( (fitnessMax.get(i) / historiqueOp.get(j)) + " " );
-//					}
-//				}
-//				writer.print("\n");
-//			}
-//			writer.close();
-//			Curve.shellExec("script2");
-//		} else {
-//			JOptionPane.showMessageDialog(new JFrame(), "Vous êtes sur "+SE+".\nNous ne pouvons malheureusement pas générer la courbe.", "Erreur - "+SE, JOptionPane.ERROR_MESSAGE);
-//			System.exit(0);
-//		}
-//	}
+	public static void draw() {
+		Curve.shellExec("script_fitness");
+		Curve.shellExec("script_histogramme");
+	}
 	
 	/**
 	 * execution du script

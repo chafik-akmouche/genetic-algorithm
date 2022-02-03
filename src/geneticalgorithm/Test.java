@@ -8,8 +8,8 @@ import java.util.ArrayList;
  */
 public class Test {
 	/** paramètres */
-	public static final int TAILLE_POPULATION = 100;
-	public static final int TAILLE_INDIVIDU = 350;
+	public static final int TAILLE_POPULATION = 200;
+	public static final int TAILLE_INDIVIDU = 600;
 	public static final int MAX_GENERATION = 200;
 	public static final int NB_EXECUTION = 5;
 	private final static String AOS = "PM"; //UCB
@@ -41,30 +41,24 @@ public class Test {
 	public static double pInitPM = (double)1/MutationOperators.length;
 	public static double valInitUCB = 0.0;
 	
-	@SuppressWarnings("unused")
 	public static void main(String[] args) throws IOException, InterruptedException {
 		ArrayList<Double> historiqueOp = new ArrayList<Double>();
 		for(int i=0; i<MutationOperators.length; i++)
 			historiqueOp.add(0.0);
 		
-		//creation et init liste historique fitness
+		//listes historique fitness Bandit
 		ArrayList<Double> historiqueFitnessMax = new ArrayList<Double>();
 		ArrayList<Double> historiqueFitnessMoy = new ArrayList<Double>();
 		ArrayList<Double> historiqueFitnessMin = new ArrayList<Double>();
 		
+		//listes historique fitness AG classique
+		ArrayList<Double> historiqueFitnessMaxAGC = new ArrayList<Double>();
+		ArrayList<Double> historiqueFitnessMoyAGC = new ArrayList<Double>();
+		ArrayList<Double> historiqueFitnessMinAGC = new ArrayList<Double>();
+		
 		int nb_execution = 0;
 		while (nb_execution < NB_EXECUTION) {
-			System.out.println("### " + AOS + " ### EXECUTION ("+(nb_execution+1) +")");
-			if (AOS == "PM") {
-				PM.launch(historiqueOp, historiqueFitnessMin, historiqueFitnessMoy, historiqueFitnessMax, nb_execution);
-			} else {
-				UCB.launch(historiqueOp, historiqueFitnessMin, historiqueFitnessMoy, historiqueFitnessMax, C, nb_execution);
-			}
-			for(int index=0; index<historiqueFitnessMin.size(); index++) {
-				System.out.println( "Historique Fitness Min : "+ historiqueFitnessMin.get(index)+"\t| "+
-					"Historique Fitness Moy : "+ historiqueFitnessMoy.get(index)+"\t| "+
-					"Historique Fitness Max : "+ historiqueFitnessMax.get(index));
-			}
+			Bandit.launch(historiqueOp, historiqueFitnessMin, historiqueFitnessMoy, historiqueFitnessMax, C, nb_execution, AOS);
 			nb_execution++;
 		}
 		
@@ -73,11 +67,23 @@ public class Test {
 			historiqueOp.set(i, historiqueOp.get(i)/NB_EXECUTION);
 		}
 		
-		//courbe fitness 
-		Curve.fitnessBandit(historiqueFitnessMax.size(), historiqueFitnessMin, historiqueFitnessMoy, historiqueFitnessMax);
-		//lancement de l'AG Classique & courbe fitness
-		ClassicAG.launch(NB_EXECUTION);
+		//sauvegarde des fitness (bandit) dans un fichier
+		Curve.fitnessBandit(historiqueFitnessMin.size(), historiqueFitnessMin, historiqueFitnessMoy, historiqueFitnessMax);
+		
+		//AG Classique
+		int nb_exec = 0;
+		while (nb_exec < NB_EXECUTION) {
+			ClassicAG.launch(nb_exec, historiqueFitnessMinAGC, historiqueFitnessMoyAGC, historiqueFitnessMaxAGC);
+			nb_exec++;
+		}
+		//sauvegarde des fitness (AG classique) dans un fichier
+		Curve.fitnessClassicAG(historiqueFitnessMinAGC.size(), historiqueFitnessMinAGC, historiqueFitnessMoyAGC, historiqueFitnessMaxAGC);
+		
 		//histogramme d'utilisation des opérateurs
+		//sauvegarde nbr d'utilisation des opérateurs dans un fichier
 		Curve.histogrammeOp(MutationOperators, historiqueOp);
+		
+		//tracer les courbes
+		Curve.draw();
 	}	
 }

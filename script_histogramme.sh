@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "set terminal png size 800,800 enhanced background rgb 'white'" > gnuplot_script2
+echo "set terminal png size 1200,600 enhanced background rgb 'white'" > gnuplot_script2
 echo "set output 'histogrammeOp.png'" >> gnuplot_script2
 echo "set title 'Nombre d utilisations de chaque opérateur'" >> gnuplot_script2
 echo "set style data boxes" >> gnuplot_script2

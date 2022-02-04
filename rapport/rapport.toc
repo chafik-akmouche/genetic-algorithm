@@ -10,9 +10,12 @@
 \contentsline {paragraph}{D\IeC {\'e}finition du probl\IeC {\`e}me :}{7}{section*.2}% 
 \contentsline {paragraph}{Objectif : }{8}{section*.3}% 
 \contentsline {section}{\numberline {7}Algorithme du Bandit}{8}{section.7}% 
-\contentsline {subsection}{\numberline {7.1}PM}{8}{subsection.7.1}% 
-\contentsline {subsubsection}{\numberline {7.1.1}Application}{8}{subsubsection.7.1.1}% 
-\contentsline {subsection}{\numberline {7.2}UCB}{8}{subsection.7.2}% 
-\contentsline {subsubsection}{\numberline {7.2.1}Application}{8}{subsubsection.7.2.1}% 
-\contentsline {section}{\numberline {8}Analyse et discussion des r\IeC {\'e}sultats obtenus}{8}{section.8}% 
-\contentsline {section}{\numberline {9}Conclusion}{8}{section.9}% 
+\contentsline {paragraph}{Probl\IeC {\`e}me du bandit : }{8}{section*.4}% 
+\contentsline {paragraph}{Algorithme de bandit : }{8}{section*.5}% 
+\contentsline {paragraph}{R\IeC {\'e}compense : }{8}{section*.6}% 
+\contentsline {subsection}{\numberline {7.1}S\IeC {\'e}lection par roulette proportionnelle}{9}{subsection.7.1}% 
+\contentsline {subsubsection}{\numberline {7.1.1}Application}{9}{subsubsection.7.1.1}% 
+\contentsline {subsection}{\numberline {7.2}UCB}{9}{subsection.7.2}% 
+\contentsline {subsubsection}{\numberline {7.2.1}Application}{9}{subsubsection.7.2.1}% 
+\contentsline {section}{\numberline {8}Analyse et discussion des r\IeC {\'e}sultats obtenus}{9}{section.8}% 
+\contentsline {section}{\numberline {9}Conclusion}{9}{section.9}% 

@@ -12,7 +12,8 @@ public class ClassicAG {
 	 * @throws FileNotFoundException
 	 * @throws UnsupportedEncodingException
 	 */
-	public static void launch (int NB_EXECUTION, ArrayList<Double> historiqueFitnessMin, ArrayList<Double> historiqueFitnessMoy, ArrayList<Double> historiqueFitnessMax) throws FileNotFoundException, UnsupportedEncodingException {
+	public static void launch (int NB_EXECUTION, String selection, String croisement, String mutation, String remplacement, ArrayList<Double> historiqueFitnessMin, ArrayList<Double> historiqueFitnessMoy, ArrayList<Double> historiqueFitnessMax) 
+			throws FileNotFoundException, UnsupportedEncodingException {
 		System.out.println("### AG CLASSIQUE ### EXECUTION (" + NB_EXECUTION + ")");
 		
 		/** sauvegarde des fitness */
@@ -34,12 +35,17 @@ public class ClassicAG {
 		int generation = 1;
 		boolean popParfaite = false;
 		while (generation <= Test.MAX_GENERATION && !popParfaite) {
-			System.out.println("############### GENERATION (" + generation + ") ###############");			
-			//mutation
-			pop = GA.mutationPopulation(pop, Test.M2F);
+			System.out.println("############### GENERATION (" + generation + ") ###############");
 			
-			//croisement & selection & remplacement
-			pop = GA.croisementMonoPoint(pop, Test.S2H, Test.R2MA);	
+			//selection & croisement & mutation & remplacement
+			pop = GA.cycle(pop, selection, croisement, mutation, remplacement);
+			//pop = GA.cycle(pop, Test.S2M, Test.CMP, Test.M2F, Test.R2MA);
+			
+			//mutation
+			//pop = GA.mutationPopulation(pop, Test.M2F);
+			
+			//selection & croisement & mutation & remplacement
+			//pop = GA.croisementMonoPoint(pop, Test.S2M, Test.M2F, Test.R2MA);	
 			//pop = GA.croisementSimplePopulation(pop, Test.S2M, Test.R2MA);
 			//pop = GA.croisementUniformePopulation(pop, Test.S2M, Test.R2MA);
 			

@@ -10,25 +10,48 @@ import java.util.Random;
 public class GeneticAlgorithm {
 
 	public static final int taille_selection = 2;
-	public static final double proba_mutation = 0.25;
+	public static final double proba_mutation = Test.PROBA_MUTATION;
 	
 	Random rand = new Random();
-
+	
 	/**
-	 * Croisement population
+	 * 
 	 * @param pop
 	 * @param selection
+	 * @param croisement
+	 * @param mutation
 	 * @param remplacement
-	 * @return pop
+	 * @return pop issue d'un cycle évolutionnaire
 	 */
-	public Population croisementSimplePopulation (Population pop, String selection, String remplacement) {
+	public Population cycle(Population pop, String selection, String croisement, String mutation, String remplacement) {
+		Population popIssue = new Population(pop.getIndividus().length, Test.TAILLE_INDIVIDU);
+		switch (croisement) {
+			case "croisementSimple": popIssue = croisementSimplePopulation(pop, selection, mutation, remplacement);
+			break;
+			case "croisementMonoPoint": popIssue = croisementMonoPoint(pop, selection, mutation, remplacement);
+			break;
+			case "croisementUniforme": popIssue = croisementUniformePopulation(pop, selection, mutation, remplacement);
+			break;
+		}
+		return popIssue;
+	}
+
+	/**
+	 * 
+	 * @param pop
+	 * @param selection
+	 * @param operateurMutation
+	 * @param remplacement
+	 * @return pop issue du croisement & mutation
+	 */
+	public Population croisementSimplePopulation (Population pop, String selection, String operateurMutation, String remplacement) {
 		//System.out.println("### Croisement simple");
 		Population popSelectionnee = new Population(taille_selection, Test.TAILLE_INDIVIDU);		
-		Population popCroisee = new Population(pop.getIndividus().length, Test.TAILLE_INDIVIDU);
+		Population popIssue = new Population(pop.getIndividus().length, Test.TAILLE_INDIVIDU);
 		
 		// initialisation de la nouvelle population issue du croisement
 		for (int i=0; i<pop.getIndividus().length; i++) {
-			popCroisee.getIndividus()[i] = pop.getIndividus()[i];
+			popIssue.getIndividus()[i] = pop.getIndividus()[i];
 		}		
 		for (int i=0; i<pop.getIndividus().length; i++) {
 			switch (selection) {
@@ -43,11 +66,12 @@ public class GeneticAlgorithm {
 			Individu individu2 = popSelectionnee.getIndividus()[1];
 			
 			switch (remplacement) {
-				case "remplacement1Mauvais": popCroisee = remplacement1Mauvais (popCroisee, croisementSimpleIndividu(individu1, individu2));
+				case "remplacement1Mauvais": popIssue = remplacement1Mauvais (popIssue, croisementSimpleIndividu(individu1, individu2));
 				break;
 			}
-		}		
-		return popCroisee;
+		}
+		mutationPopulation(popIssue, operateurMutation);
+		return popIssue;
 	}
 
 	/**
@@ -57,14 +81,14 @@ public class GeneticAlgorithm {
 	 * @param remplacement
 	 * @return pop croisée
 	 */
-	public Population croisementMonoPoint (Population pop, String selection, String remplacement) {
+	public Population croisementMonoPoint (Population pop, String selection, String operateurMutation, String remplacement) {
 		//System.out.println("### Croisement mono-point.");
 		Population parentsSelectionnes = new Population(2, Test.TAILLE_INDIVIDU);
-		Population popCroisee = new Population(pop.getIndividus().length, Test.TAILLE_INDIVIDU);
+		Population popIssue = new Population(pop.getIndividus().length, Test.TAILLE_INDIVIDU);
 		
 		// initialisation de la nouvelle population issue du croisement
 		for (int i=0; i<pop.getIndividus().length; i++) {
-			popCroisee.getIndividus()[i] = pop.getIndividus()[i];
+			popIssue.getIndividus()[i] = pop.getIndividus()[i];
 		}
 		for (int i=0; i<pop.getIndividus().length; i++) {
 			switch (selection) {
@@ -80,13 +104,14 @@ public class GeneticAlgorithm {
 			// affichage
 			//System.out.println("Parents selectionnes");			
 			switch (remplacement) {
-				case "remplacement2Mauvais": popCroisee = remplacement2Mauvais (popCroisee, croisementMonoPointParent (parent1, parent2).getIndividus()[0], croisementMonoPointParent (parent1, parent2).getIndividus()[1]);
+				case "remplacement2Mauvais": popIssue = remplacement2Mauvais (popIssue, croisementMonoPointParent (parent1, parent2).getIndividus()[0], croisementMonoPointParent (parent1, parent2).getIndividus()[1]);
 				break;
-				case "remplacement2Meilleur": popCroisee = remplacement2Meilleur (popCroisee, croisementMonoPointParent (parent1, parent2).getIndividus()[0], croisementMonoPointParent (parent1, parent2).getIndividus()[1]);
+				case "remplacement2Meilleur": popIssue = remplacement2Meilleur (popIssue, croisementMonoPointParent (parent1, parent2).getIndividus()[0], croisementMonoPointParent (parent1, parent2).getIndividus()[1]);
 				break;
 			}
 		}		
-		return popCroisee;
+		mutationPopulation(popIssue, operateurMutation);
+		return popIssue;
 	}
 
 	/**
@@ -96,12 +121,12 @@ public class GeneticAlgorithm {
 	 * @param remplacement
 	 * @return pop croisée
 	 */
-	public Population croisementUniformePopulation (Population pop, String selection, String remplacement) {
+	public Population croisementUniformePopulation (Population pop, String selection, String operateurMutation, String remplacement) {
 		//System.out.println("### Croisement uniforme");
-		Population popCroisee = new Population(pop.getIndividus().length, Test.TAILLE_INDIVIDU);
+		Population popIssue = new Population(pop.getIndividus().length, Test.TAILLE_INDIVIDU);
 		// initialisation de la nouvelle population issue du croisement
 		for (int i=0; i<pop.getIndividus().length; i++) {
-			popCroisee.getIndividus()[i] = pop.getIndividus()[i];
+			popIssue.getIndividus()[i] = pop.getIndividus()[i];
 		}
 		Individu individu1 = null;
 		Individu individu2;
@@ -118,11 +143,12 @@ public class GeneticAlgorithm {
 				individu2.getGenes()[k] = rand.nextInt(2);
 			}	
 			switch (remplacement) {
-				case "remplacement1Mauvais": popCroisee = remplacement1Mauvais (popCroisee, croisementUniformeIndividu(individu1, individu2));
+				case "remplacement1Mauvais": popIssue = remplacement1Mauvais (popIssue, croisementUniformeIndividu(individu1, individu2));
 				break;
 			}
 		}
-		return popCroisee;
+		mutationPopulation(popIssue, operateurMutation);
+		return popIssue;
 	}
 
 	/**

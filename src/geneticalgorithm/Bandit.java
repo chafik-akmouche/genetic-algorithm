@@ -18,7 +18,7 @@ public class Bandit {
 	 * @throws FileNotFoundException
 	 * @throws UnsupportedEncodingException
 	 */
-	public static void launch(ArrayList<Double> historiqueOp, ArrayList<Double> historiqueFitnessMin, ArrayList<Double> historiqueFitnessMoy, ArrayList<Double> historiqueFitnessMax, int c, int nb_execution, String AOS) 
+	public static void launch(String selection, String croisement, String remplacement, ArrayList<Double> historiqueOp, ArrayList<Double> historiqueFitnessMin, ArrayList<Double> historiqueFitnessMoy, ArrayList<Double> historiqueFitnessMax, int c, int nb_execution, String AOS) 
 			throws FileNotFoundException, UnsupportedEncodingException {
 		System.out.println("### "+AOS+" ### EXECUTION (" + nb_execution + ")");
 		
@@ -62,11 +62,14 @@ public class Bandit {
 			String current_op = listeOp.get(index).getName();
 			listeOp.get(index).incNb_fois();
 			
-			//mutation
-			pop = GA.mutationPopulation(pop, current_op);
+			//selection & croisement & mutation & remplacement
+			pop = GA.cycle(pop, selection, croisement, current_op, remplacement);
 			
-			//croisement & selection & remplacement
-			pop = GA.croisementMonoPoint(pop, Test.S2M, Test.R2MA);	
+			//mutation
+			//pop = GA.mutationPopulation(pop, current_op);
+			
+			//selection & croisement & mutation & remplacement
+			//pop = GA.croisementMonoPoint(pop, Test.S2M, current_op, Test.R2MA);	
 			//pop = GA.croisementSimplePopulation(pop, S2M, R2MA);
 			//pop = GA.croisementUniformePopulation(pop, S2M, R2MA);
 			

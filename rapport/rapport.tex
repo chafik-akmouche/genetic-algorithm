@@ -270,9 +270,9 @@ Vu le nombre important de paramètres de l'algorithme (sélection, mutation, cro
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Problématique du choix du meilleur opérateur}
-Le choix de l'opérateur à utiliser comme nous l'avons vu dans la section précédente affecte de manière directe la Fitness ou l'efficacité de l'algorithme génétique de manière générale.\\
+Le choix de l'opérateur à utiliser comme nous l'avons vu dans la section précédente affecte d'une manière directe la Fitness ou l'efficacité de l'algorithme génétique d'une manière générale.\\
 
-Dans cette étude, nous allons nous intéresser aux opérateurs de mutation. Nous avons vu dans la partie précédente que l'efficacité des opérateurs dépende directement de la taille du problème et de l'instant ou l'opérateur est utilisé. Nous avons vu qu'au début de l'exécution (0 - 200 génération) l'opérateur 5 Flip était plus améliorant que les autres opérateurs, mais à partir de la génération 200 nous avons remarqué l'inverse.\\
+Dans cette étude, nous allons nous intéresser aux opérateurs de mutation. Nous avons vu dans la partie précédente que l'efficacité des opérateurs dépende directement de la taille du problème et de l'instant lorsque l'opérateur est utilisé. Nous avons vu qu'au début de l'exécution (0 - 200 génération) l'opérateur 5 Flip était plus améliorant que les autres opérateurs, mais à partir de la génération 200 nous avons remarqué l'inverse.\\
 
 Une amélioration qui peut augmenter considérablement la Fitness serait donc de mettre en place un mécanisme qui permet de choisir intelligemment à un instant \textit{t} l'opérateur \textit{o} à utiliser.\\
 
@@ -282,12 +282,29 @@ Il existe plusieurs méthodes qui permettent à partir d'un certain nombre de do
 \begin{itemize}[label=-]
 \item 4 opérateurs de mutation : 1 Flip, Bit-Flip, 3 Flip, 5 Flip. 
 \item Un nombre max de générations.
-\item Une fonction Fitness (cumulée qu'on cherche à maximiser).
+\item Une fonction Fitness (fitness cumulée qu'on cherche à maximiser).
 \end{itemize}
 \paragraph{Objectif : } À chaque itération (génération), l'algorithme doit pouvoir choisir le meilleur opérateur de mutation qui permet de maximiser la fitness cumulée. 
 
 \section{Algorithme du Bandit}
-	\subsection{PM}
+\paragraph{Problème du bandit : } Afin de simplifier le problème du bandit, nous allons prendre le cas le plus simple. On considère une machines à sous à 2 bras, notés A et B. L’action du bras A (resp. B) donne lieu à un gain qui n'est pas connu a priori, et le joueur cherche à actionner le bras le plus favorable. L'idée consiste à choisir un bras au hasard, mais en modifiant au cours du temps la loi de probabilité du choix du bras, i.e. Si à l’étape $ n $, le bras actionné avait une probabilité $ p_n $ d’être choisi, s’il produit un gain, on lui affecte à l’étape suivante une probabilité plus importante $ p_{n+1} \ge p_n $.
+
+\paragraph{Algorithme de bandit : } L'algorithme du bandit tient son nom du problème expliqué dans le paragraphe précédent où le joueur cherche à maximiser son gain. L'algorithme du bandit est un modèle d'apprentissage par renforcement qui consiste à un instant $ t $ de choisir l'action $ a $ dont il a appris qu'elle récompense beaucoup.\\
+
+\par Dans notre cas, les k-bras de la machine à sous (multi-armed bandit) sont les différents opérateurs de mutation et à chaque génération l'algorithme choisit un opérateur et ajuste les probabilités du choix des opérateurs en fonction des gains.
+
+\paragraph{Récompense : } La récompense est la valorisation immédiate d’une action dans un état donné : $ R_t = Fitness_t - Fitness_{t-1} + d $ \\tel que $ d $ est la valeur de décalage qui permet de ne pas avoir une récompense négative.\\
+
+\par Il existe plusieurs approches (politiques) pour résoudre ce problème : $ \varepsilon- $Greedy, Probability Matching, Upper-Confidence Bound (UCB), Lower Upper Confidence Bound (LUCB), etc.\\
+
+\par Dans notre cas, nous avons implémenté les deux algorithmes "Sélection par roulette proportionnelle" et "UCB".
+
+
+	\subsection{Sélection par roulette proportionnelle}
+	Au lancement de l'algorithme, tous les opérateurs ont une probabilité $ P_{init} = \frac{1}{nb\_operateurs} $. Dans notre cas, nous avons 4 opérateurs, donc la probabilité initiale de chaque opérateur $ P_{init} = \frac{1}{4} $. L'algorithme choisit donc aléatoirement un opérateur, calcule l'amélioration/récompense immédiate et le gain pour ajuster les probabilités des opérateurs.\\
+	$ \pi_i^{t+1} = P_{min} + (1 - N.P_{min} ) \frac{u_i^{(t+1)}}{\sum_{k=1}^N u_k^{(t+1)}} $\\
+	Tel que : \\
+	
 		\subsubsection{Application}
 	\subsection{UCB}
 		\subsubsection{Application}

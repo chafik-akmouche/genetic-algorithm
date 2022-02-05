@@ -97,7 +97,11 @@ Réalisé par :\\
 \thispagestyle{empty}
 \textbf{Résumé}\\
 
-xxxx
+Dans ce papier, nous avons implémenté un algorithme génétique avec plusieurs opérateurs de sélection, croisement, mutation, remplacement... et nous l'avons appliqué au problème OneMax.\\
+
+En testant les différents opérateurs, nous avons remarqué qu'il n'y a pas d'opérateur performant d'une manière absolue qu'un autre opérateur, mais tout dépend du problème traité, de sa taille mais surtout de l'instant lorsque l'opérateur est utilisé. La problématique dressée est donc : quel opérateur et quand l'utiliser afin d'augmenter la fitness cumulée ? c'est ce que nous avons traité dans la deuxième partie de ce rapport, ensuite nous avons implémenté deux mécanismes d'apprentissage par renforcement (PM et UCB) et nous les avons injecté à l'algorithme génétique.\\
+
+Enfin, nous avons présenté, analysé et discuté les résultats obtenus, et comparé aux résultats obtenus par l'algorithme classique.\\ 
 
 \textbf{Mots clés : } Algorithme évolutionnaire, Algorithme génétique, Problème OneMax, Problème du Bandit, PM, UCB.
 
@@ -205,14 +209,14 @@ La figure \ref{fonct_algo} illustre le fonctionnement général de l'algorithme 
 \label{resultat_1}
 Vu le nombre important de paramètres de l'algorithme (sélection, mutation, croisement, remplacement), nous ne pouvons pas étudier tous les résultats obtenus des différents paramètres. Dans cette étude, nous allons nous focaliser beaucoup plus sur les résultats liés à la mutation.
 
-\subsection{Fitness en fonction des opérateurs de mutation} La figure \ref{fitness_op_select} montre l'évolution de la Fitness max obtenue sur 20 exécutions différentes en fonction des opérateurs de mutation (1-flip, bit-flip...).
+\subsection{Fitness en fonction des opérateurs de mutation} La figure \ref{fitness_op_mut} montre l'évolution de la Fitness max obtenue sur 20 exécutions différentes en fonction des opérateurs de mutation (1-flip, bit-flip...).
 \begin{itemize}
 \item{Paramètres de l'algorithme :}
 	\begin{itemize}[label=-]
 		\item{Taille de la population : } 1000
 		\item{Taille de l'individu :} 1000
 		\item{Max génération :} 500
-		\item{Nombre d'exécution :} 10
+		\item{Nombre d'exécution :} 20
 		\item{Opérateur de sélection :} Sélection des 2 meilleurs individus de la population.
 		\item{Opérateur de croisement :} Croisement mono-point.
 		\item{Probabilité de mutation :} 0.25.
@@ -228,7 +232,13 @@ Vu le nombre important de paramètres de l'algorithme (sélection, mutation, cro
 		\end{center}
 \end{figure}
 
-\item{Discussion :}
+\item{Discussion :} Cette figure illustre l'évolution de la fitness en testant tous les opérateurs de mutation.\\
+
+On remarque que l'opérateur 1-flip qui améliore d'une manière continue la fitness mais légèrement et arrive après la condition d'arrêt à une fitness faible par rapport aux autres opérateurs.\\
+
+L'opérateur 5-flip augmente considérablement la fitness et plus rapidement que les tous les autres opérateurs mais se stabilise après un certain nombre de génération (200 générations) ou il devient moins améliorant / pas améliorant, car à cet instant de l'exécution, la plupart des gênes des individus sont à 1 et une mutation 5-flip va donc diminuer la fitness au lieu de l'augmenter.\\
+
+3-flip augment aussi la fitness un peu moins que 5-flip mais arrive à le dépasser après 300 générations. Bit-flip augment un peu moins la fitness en fonction de génération par rapport à 5-flip et 3-flip mais arrive à la fin de l'exécution à une fitness plus élevée que ces derniers.
 
 \end{itemize}
 
@@ -247,7 +257,8 @@ Vu le nombre important de paramètres de l'algorithme (sélection, mutation, cro
 		\end{center}
 \end{figure} 
 
-\item{Discussion :}
+\item{Discussion : } La figure \ref{fitness_op_crois} illustre l'évolution de la fitness en fonction des opérateurs de croisement, on remarque que le croisement mono-point et plus performant que les autres opérateurs, car dans cette expérimentation l'algorithme sélectionne les 2 meilleurs individus de la population et donc le croisement mono-point de ces 2 parents va engendrer des enfants meilleurs (dans la plupart des cas) que les enfants issus du croisement simple ou uniforme ce qui explique cette différence.
+ 
 \end{itemize}
 
 \subsection{Autres testes}
@@ -340,7 +351,23 @@ Il existe plusieurs méthodes qui permettent à partir d'un certain nombre de do
 	 $ B_j = X_j + A_j $, tel que :  $ A_j = \sqrt{\frac{2log(t)}{T_j}} $
 
 \section{Analyse et discussion des résultats obtenus}
-Dans cette partie, nous allons présenter les différents résultats obtenus en utilisant les deux algorithmes présentés dans la section précédente, et enfin nous analysons et comparons ces résultats avec les résultats obtenus dans la section \ref{resultat_1}.
+Dans cette partie, nous allons présenter les différents résultats obtenus en utilisant les deux algorithmes présentés dans la section précédente, et enfin nous analysons et comparons ces résultats avec les résultats obtenus dans la section \ref{resultat_1}.\\
+
+\paragraph{Paramètres de l'algorithme : }
+\begin{itemize}[label=-]
+		\item{Taille de la population : } 1000
+		\item{Taille de l'individu :} 1000
+		\item{Max génération :} 500
+		\item{Nombre d'exécution :} 10
+		\item{Opérateur de sélection :} Sélection des 2 meilleurs individus de la population.
+		\item{Opérateur de croisement :} Croisement mono-point.
+		\item{Probabilité de mutation :} 0.25.
+		\item{Opérateur de remplacement :} Remplacement des 2 plus mauvais individus de la population.
+\end{itemize}
+
+\paragraph{Évolution de la fitness avec l'algorithme PM : } Sur la figure \ref{curve_ag_pm} on remarque le gain apporté par l'algorithme PM en terme de fitness par rapport à l'algorithme génétique classique (mutation bit-flip). En fait, l'AG classique avec l'opérateur bit-flip améliore la fitness d'une manière continue mais légèrement jusqu'à ce que la condition d'arrêt \emph{max génération} soit atteinte. Par contre l'algorithme PM commence d'abord par attribuer des probabilités égales aux différents opérateur ensuite ajuste ces probabilités en fonction du gain de chacun des opérateurs. l'opérateur qui récompense beaucoup a une probabilité plus importante que les autres opérateurs d'être choisi.\\
+
+Au lancement de l'algorithme (avec une population initialisée à 0), la mutation 5-flip est l'opérateur qui améliore le plus la fitness, ce qui justifie le nombre d'utilisation de ce dernier plus que les autres opérateur (voir la figure \ref{histogrammeOppm} et ce qui justifie également l'augmentation considérable de la fitness dans l'intervalle $ [0, 250] $ générations. Ensuite ($ > 250 $ générations), l'opérateur 5-flip n'améliore pas la fitness, donc l'algorithme PM a choisi les autres opérateurs bit-flip, 3-flip et 1-flip ce qui justifie l'évolution légère la fitness à la fin de l'exécution.
 
 \begin{figure}[H]
 	\begin{center}
@@ -350,6 +377,8 @@ Dans cette partie, nous allons présenter les différents résultats obtenus en 
 	\end{center}
 \end{figure}
 
+Sur la figure \ref{histogrammeOppm}, on peut remarquer ce qu'on a expliqué dans le paragraphe précédent. On remarque que l'opérateur 5-flip est beaucoup plus utilisé par rapport aux autres opérateurs car il améliore beaucoup plus la fitness au début l'exécution, ensuite l'opérateur bit-flip ($\simeq 50$ fois), 3-flip ($\simeq 45$ fois) et enfin 1-fois ($\simeq 40$ fois). 
+
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[scale=0.5]{img/histogrammeOppm.png}
@@ -357,6 +386,8 @@ Dans cette partie, nous allons présenter les différents résultats obtenus en 
 		\label{histogrammeOppm}
 	\end{center}
 \end{figure}
+
+\paragraph{Évolution de la fitness avec l'algorithme UCB : } Sur la figure \ref{curve_ag_ucb}, on remarque les fitness obtenues avec l'algorithme UCB dépasse largement les fitness de l'AG classique. UCB dans la phase d'exploration il choisi aléatoirement les opérateurs à utiliser ce qui explique l'augmentation moins considérable de la fitness dans l'intervalle $ [0, 40] $ génération, ensuite l'algorithme choisi l'opérateur qui récompense beaucoup.
 
 \begin{figure}[H]
 	\begin{center}
@@ -366,6 +397,8 @@ Dans cette partie, nous allons présenter les différents résultats obtenus en 
 	\end{center}
 \end{figure}
 
+Sur l'histogramme \ref{histogrammeOpucb}, on remarque que UCB, contrairement à PM a utilisé beaucoup plus l'opérateur 3-flip. En fait, 3-flip et 5-flip sont en concurrence parce que les deux améliore considérablement la fitness.  
+
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[scale=0.5]{img/histogrammeOpucb.png}
@@ -373,6 +406,8 @@ Dans cette partie, nous allons présenter les différents résultats obtenus en 
 		\label{histogrammeOpucb}
 	\end{center}
 \end{figure}
+
+La figure \ref{curve_fitness_ucb_pm} est une comparaison entre UCB et PM. On remarque qu'il n'y a pas une grande différence entre les deux algorithmes en terme d'évolution de la fitness en fonction de générations.
 
 \begin{figure}[H]
 	\begin{center}
@@ -383,7 +418,16 @@ Dans cette partie, nous allons présenter les différents résultats obtenus en 
 \end{figure}
 
 \section{Conclusion}
+Dans ce papier, nous avons vu les algorithmes génétiques, le problème OneMax, ensuite on a implémenté un algorithme génétique en java et nous l'avons appliqué au problème OneMax.\\
+
+Dans la première partie, nous avons présenté les résultats obtenus par l'AG classique et nous vu la difficulté du choix des opérateurs (de mutation, croisement...), car le gain de chaque opérateur dépend de l'état et de l'instant lorsqu'il est utilisé.\\
+
+Dans la deuxième partie, nous avons traité le problème du choix des opérateur, et avons implémenté deux mécanismes d'apprentissage par renforcement PM et UCB qui permettent de choisir l'opérateur de mutation de plus performant en fonction de l'état de la population.\\
+
+Enfin, nous avons présenté les résultats obtenus par ces deux derniers algorithmes UCB et PM, discuté et comparé ces résultats avec les résultats obtenus dans la première partie. 
+
 \subsection{Perspectives d'amélioration}
+Nous avons vu que le choix d'opérateur dépend d'une manière directe de l'instant et de l'état actuel de la population. Dans ce travail nous avons implémenté des mécanisme qui permettent de choisir intelligemment les opérateurs de mutation, une amélioration serait donc d'étendre ce mécanisme pour la sélection des autres opérateurs (croisement, remplacement...). Une autre amélioration serait aussi d'implémenter d'autres mécanisme d'apprentissage par renforcement et les comparer à UCB et PM. 
 
 \end{document}
 

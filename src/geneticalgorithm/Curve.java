@@ -30,7 +30,6 @@ public class Curve {
 				writer.println(i +" "+fitnessMin.get(i)+" "+fitnessMoy.get(i)+" "+fitnessMax.get(i));
 			}				
 			writer.close();
-			//Curve.shellExec("script_fitness");
 		} else {
 			JOptionPane.showMessageDialog(new JFrame(), "Vous êtes sur "+SE+".\nNous ne pouvons malheureusement pas générer la courbe.", "Erreur - "+SE, JOptionPane.ERROR_MESSAGE);
 			System.exit(0);
@@ -76,7 +75,6 @@ public class Curve {
 				writer.println(i +" "+historiqueOp.get(i));
 			}				
 			writer.close();
-			//Curve.shellExec("script_histogramme");
 		} else {
 			JOptionPane.showMessageDialog(new JFrame(), "Vous êtes sur "+SE+".\nNous ne pouvons malheureusement pas générer la courbe.", "Erreur - "+SE, JOptionPane.ERROR_MESSAGE);
 			System.exit(0);
@@ -84,7 +82,7 @@ public class Curve {
 	}
 	
 	/**
-	 * Tracer les courbe
+	 * Tracer les courbe & histohramme
 	 */
 	public static void draw() {
 		Curve.shellExec("script_fitness");

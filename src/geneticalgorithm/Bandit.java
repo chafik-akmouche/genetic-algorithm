@@ -51,7 +51,7 @@ public class Bandit {
 		int generation = 1;
 		boolean popParfaite = false;
 		while (generation <= Test.MAX_GENERATION && !popParfaite) {
-			System.out.println("############### GENERATION (" + generation + ") ###############");
+			System.out.println("### GENERATION (" + generation);
 			int index = 0;
 			//sélectionner un operateur
 			if (AOS == "PM") {
@@ -64,14 +64,6 @@ public class Bandit {
 			
 			//selection & croisement & mutation & remplacement
 			pop = GA.cycle(pop, selection, croisement, current_op, remplacement);
-			
-			//mutation
-			//pop = GA.mutationPopulation(pop, current_op);
-			
-			//selection & croisement & mutation & remplacement
-			//pop = GA.croisementMonoPoint(pop, Test.S2M, current_op, Test.R2MA);	
-			//pop = GA.croisementSimplePopulation(pop, S2M, R2MA);
-			//pop = GA.croisementUniformePopulation(pop, S2M, R2MA);
 			
 			// Trier les individus par ordre croissant des fitness
 			pop.TrierIndividusParFitness();		
@@ -117,7 +109,7 @@ public class Bandit {
 		}
 		
 		//affichage de l'etat actuel des opérateurs
-		Display.affichageEtatOp(listeOp);
+		//Display.affichageEtatOp(listeOp);
 		
 		//sauvegarde de l'historique de l'utilisation de chaque opérateur (en incr)
 		for(int i=0; i<listeOp.size(); i++) {

@@ -35,19 +35,10 @@ public class ClassicAG {
 		int generation = 1;
 		boolean popParfaite = false;
 		while (generation <= Test.MAX_GENERATION && !popParfaite) {
-			System.out.println("############### GENERATION (" + generation + ") ###############");
+			System.out.println("### GENERATION (" + generation);
 			
 			//selection & croisement & mutation & remplacement
 			pop = GA.cycle(pop, selection, croisement, mutation, remplacement);
-			//pop = GA.cycle(pop, Test.S2M, Test.CMP, Test.M2F, Test.R2MA);
-			
-			//mutation
-			//pop = GA.mutationPopulation(pop, Test.M2F);
-			
-			//selection & croisement & mutation & remplacement
-			//pop = GA.croisementMonoPoint(pop, Test.S2M, Test.M2F, Test.R2MA);	
-			//pop = GA.croisementSimplePopulation(pop, Test.S2M, Test.R2MA);
-			//pop = GA.croisementUniformePopulation(pop, Test.S2M, Test.R2MA);
 			
 			// Trier les individus par ordre croissant des fitness
 			pop.TrierIndividusParFitness();		

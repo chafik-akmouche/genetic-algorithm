@@ -24,7 +24,7 @@ public class UCB {
 		Random rand = new Random();
 		int index = 0;
 		if (generation <= listeOp.size()*3) {
-			while (listeOp.get(index).getNb_fois() >= 3) {
+			while (listeOp.get(index).getNb_fois() >= 10) {
 				index = rand.nextInt(listeOp.size());
 			}
 		} else {

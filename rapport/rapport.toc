@@ -4,18 +4,20 @@
 \contentsline {subsection}{\numberline {1.2}Rappels sur le probl\IeC {\`e}me OneMax}{2}{subsection.1.2}% 
 \contentsline {section}{\numberline {2}Application de l'algorithme g\IeC {\'e}n\IeC {\'e}tique au probl\IeC {\`e}me OneMax}{2}{section.2}% 
 \contentsline {section}{\numberline {3}Impl\IeC {\'e}mentation de l'algorithme g\IeC {\'e}n\IeC {\'e}tique}{3}{section.3}% 
-\contentsline {section}{\numberline {4}Fonctionnement g\IeC {\'e}n\IeC {\'e}ral}{4}{section.4}% 
+\contentsline {section}{\numberline {4}Fonctionnement g\IeC {\'e}n\IeC {\'e}ral de l'algorithme g\IeC {\'e}n\IeC {\'e}tique}{4}{section.4}% 
 \contentsline {section}{\numberline {5}R\IeC {\'e}sultats}{5}{section.5}% 
-\contentsline {section}{\numberline {6}Probl\IeC {\'e}matique du choix du meilleur op\IeC {\'e}rateur}{7}{section.6}% 
-\contentsline {paragraph}{D\IeC {\'e}finition du probl\IeC {\`e}me :}{7}{section*.2}% 
+\contentsline {subsection}{\numberline {5.1}Fitness en fonction des op\IeC {\'e}rateurs de mutation}{5}{subsection.5.1}% 
+\contentsline {subsection}{\numberline {5.2}Fitness en fonction des op\IeC {\'e}rateurs du croisement }{6}{subsection.5.2}% 
+\contentsline {subsection}{\numberline {5.3}Autres testes}{6}{subsection.5.3}% 
+\contentsline {section}{\numberline {6}Probl\IeC {\'e}matique du choix des op\IeC {\'e}rateurs}{8}{section.6}% 
+\contentsline {paragraph}{D\IeC {\'e}finition du probl\IeC {\`e}me :}{8}{section*.2}% 
 \contentsline {paragraph}{Objectif : }{8}{section*.3}% 
 \contentsline {section}{\numberline {7}Algorithme du Bandit}{8}{section.7}% 
 \contentsline {paragraph}{Probl\IeC {\`e}me du bandit : }{8}{section*.4}% 
-\contentsline {paragraph}{Algorithme de bandit : }{8}{section*.5}% 
-\contentsline {paragraph}{R\IeC {\'e}compense : }{8}{section*.6}% 
-\contentsline {subsection}{\numberline {7.1}S\IeC {\'e}lection par roulette proportionnelle}{9}{subsection.7.1}% 
-\contentsline {subsubsection}{\numberline {7.1.1}Application}{9}{subsubsection.7.1.1}% 
-\contentsline {subsection}{\numberline {7.2}UCB}{9}{subsection.7.2}% 
-\contentsline {subsubsection}{\numberline {7.2.1}Application}{9}{subsubsection.7.2.1}% 
-\contentsline {section}{\numberline {8}Analyse et discussion des r\IeC {\'e}sultats obtenus}{9}{section.8}% 
-\contentsline {section}{\numberline {9}Conclusion}{9}{section.9}% 
+\contentsline {paragraph}{Algorithme de bandit : }{9}{section*.5}% 
+\contentsline {paragraph}{R\IeC {\'e}compense : }{9}{section*.6}% 
+\contentsline {subsection}{\numberline {7.1}Roulette proportionnelle pour le choix d'op\IeC {\'e}rateur}{9}{subsection.7.1}% 
+\contentsline {subsection}{\numberline {7.2}UCB}{10}{subsection.7.2}% 
+\contentsline {section}{\numberline {8}Analyse et discussion des r\IeC {\'e}sultats obtenus}{10}{section.8}% 
+\contentsline {section}{\numberline {9}Conclusion}{13}{section.9}% 
+\contentsline {subsection}{\numberline {9.1}Perspectives d'am\IeC {\'e}lioration}{13}{subsection.9.1}% 

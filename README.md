@@ -5,3 +5,5 @@
 ![Fitness min, moy, max / génération](curve_fitness.png)
 
 ![utilisation de chaque opérateurn](histogrammeOp.png)
+
+![utilisation de chaque opérateurn](utilsation_op.png)

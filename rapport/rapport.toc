@@ -7,14 +7,14 @@
 \contentsline {section}{\numberline {4}Fonctionnement g\IeC {\'e}n\IeC {\'e}ral de l'algorithme g\IeC {\'e}n\IeC {\'e}tique}{4}{section.4}% 
 \contentsline {section}{\numberline {5}R\IeC {\'e}sultats}{5}{section.5}% 
 \contentsline {subsection}{\numberline {5.1}Fitness en fonction des op\IeC {\'e}rateurs de mutation}{5}{subsection.5.1}% 
-\contentsline {subsection}{\numberline {5.2}Fitness en fonction des op\IeC {\'e}rateurs du croisement }{6}{subsection.5.2}% 
+\contentsline {subsection}{\numberline {5.2}Fitness en fonction des op\IeC {\'e}rateurs du croisement }{7}{subsection.5.2}% 
 \contentsline {subsection}{\numberline {5.3}Autres testes}{7}{subsection.5.3}% 
-\contentsline {section}{\numberline {6}Probl\IeC {\'e}matique du choix des op\IeC {\'e}rateurs}{8}{section.6}% 
+\contentsline {section}{\numberline {6}Probl\IeC {\'e}matique du choix des op\IeC {\'e}rateurs}{9}{section.6}% 
 \contentsline {paragraph}{D\IeC {\'e}finition du probl\IeC {\`e}me :}{9}{section*.2}% 
 \contentsline {paragraph}{Objectif : }{9}{section*.3}% 
 \contentsline {section}{\numberline {7}Algorithme du Bandit}{9}{section.7}% 
 \contentsline {paragraph}{Probl\IeC {\`e}me du bandit : }{9}{section*.4}% 
-\contentsline {paragraph}{Algorithme de bandit : }{9}{section*.5}% 
+\contentsline {paragraph}{Algorithme de bandit : }{10}{section*.5}% 
 \contentsline {paragraph}{R\IeC {\'e}compense : }{10}{section*.6}% 
 \contentsline {subsection}{\numberline {7.1}Roulette proportionnelle pour le choix d'op\IeC {\'e}rateur}{10}{subsection.7.1}% 
 \contentsline {subsection}{\numberline {7.2}UCB}{11}{subsection.7.2}% 

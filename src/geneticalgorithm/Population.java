@@ -5,9 +5,10 @@ import java.util.Arrays;
 public class Population {
 	private Individu[] individus;
 	private int taille_individu;
-	
+
 	/**
 	 * constructeur
+	 * 
 	 * @param taille_population
 	 * @param taille_individu
 	 */
@@ -16,13 +17,14 @@ public class Population {
 		// creation de la population
 		individus = new Individu[taille_population];
 	}
-	
+
 	/**
 	 * initialiation de la population
+	 * 
 	 * @return
 	 */
-	public Population initialiationPopulation () {
-		for (int i=0; i<individus.length; i++) {
+	public Population initialiationPopulation() {
+		for (int i = 0; i < individus.length; i++) {
 			// creation des individu de notre population + initialiation
 			individus[i] = new Individu(taille_individu).initialiationIndividu();
 		}
@@ -42,7 +44,7 @@ public class Population {
 			} else if (individu1.getFitness() < individu2.getFitness()) {
 				flag = 1;
 			}
-		return flag;
+			return flag;
 		});
 	}
 

@@ -8,14 +8,14 @@ public class Operator {
 	private int nb_fois;
 	private ArrayList<Double> listeReward;
 	private ArrayList<Double> listeAmelioration;
-	
-	public Operator (String name, double proba, int nb_fois) {
+
+	public Operator(String name, double proba, int nb_fois) {
 		this.name = name;
 		this.proba = proba;
 		this.nb_fois = nb_fois;
 		this.listeReward = new ArrayList<Double>();
 		this.listeAmelioration = new ArrayList<Double>();
-		//init liste des rewards
+		// init liste des rewards
 		listeReward.add(0, 0.0);
 	}
 
@@ -42,7 +42,7 @@ public class Operator {
 	public void setNb_fois(int nb_fois) {
 		this.nb_fois = nb_fois;
 	}
-	
+
 	public void incNb_fois() {
 		this.nb_fois++;
 	}

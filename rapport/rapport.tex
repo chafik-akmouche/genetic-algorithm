@@ -35,80 +35,93 @@
 
 \begin{document}
 
-\thispagestyle{empty}
-\begin{center}
-\textbf{UNIVERSITÉ D'ANGERS}\\
-\textbf{UFR DES SCIENCES}\\
-\textbf{DÉPARTEMENT D'INFORMATIQUE}
-\end{center}
+% \thispagestyle{empty}
+% \begin{center}
+% \textbf{UNIVERSITÉ D'ANGERS}\\
+% \textbf{UFR DES SCIENCES}\\
+% \textbf{DÉPARTEMENT D'INFORMATIQUE}
+% \end{center}
 
-\begin{figure}[H]
-\begin{center}
-\includegraphics[scale=0.23]{img/angers.png}
-\end{center}
-\end{figure}
+% \begin{figure}[H]
+% \begin{center}
+% \includegraphics[scale=0.23]{img/angers.png}
+% \end{center}
+% \end{figure}
 
-\begin{center}
-\Large{\textbf{RAPPORT}}\\
-\Large{\textbf{UE - Algorithme intelligent pour l'aide à la décision}}\\
+% \begin{center}
+% \Large{\textbf{RAPPORT}}\\
+% \Large{\textbf{UE - Algorithme intelligent pour l'aide à la décision}}\\
 
 
-\textbf{------------------------------------------------------} \\
-Algorithme génétique appliqué au problème OneMax  \\
-Apprentissage par renforcement pour la sélection intelligente des opérateurs de mutation
-\textbf{------------------------------------------------------} \\
+% \textbf{------------------------------------------------------} \\
+% Algorithme génétique appliqué au problème OneMax  \\
+% Apprentissage par renforcement pour la sélection intelligente des opérateurs de mutation
+% \textbf{------------------------------------------------------} \\
 
-\begin{table}[H]
-\begin{tabular}{lll}
-&&\\
-\end{tabular}
-\end{table}
+% \begin{table}[H]
+% \begin{tabular}{lll}
+% &&\\
+% \end{tabular}
+% \end{table}
 
-Réalisé par :\\
-\textbf{Chafik AKMOUCHE} \\
+% Réalisé par :\\
+% \textbf{Chafik AKMOUCHE} \\
 
-\textbf{Master 2 Intelligence Décisionnelle} \\
-\end{center}
+% \textbf{Master 2 Intelligence Décisionnelle} \\
+% \end{center}
 
-\begin{table}[H]
-\begin{tabular}{lll}
-&&\\
-\end{tabular}
-\end{table}
+% \begin{table}[H]
+% \begin{tabular}{lll}
+% &&\\
+% \end{tabular}
+% \end{table}
 
-\begin{center}
-2021 - 2022
-\end{center}
+% \begin{center}
+% 2021 - 2022
+% \end{center}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newpage
-\renewcommand\headrulewidth{1 pt}\fancyhead[L]{}\fancyhead[C]{}\fancyhead[R]{\textit{Table des Matières}} 
+%\newpage
+%\renewcommand\headrulewidth{1 pt}\fancyhead[L]{}\fancyhead[C]{}\fancyhead[R]{\textit{Table des %Matières}} 
 %\addcontentsline{toc}{chapter}{Table des Matières}
-\thispagestyle{empty}
-\tableofcontents
+%\thispagestyle{empty}
+%\tableofcontents
 
 \newpage
-\renewcommand\headrulewidth{1 pt}\fancyhead[L]{}\fancyhead[C]{}\fancyhead[R]
-{\textit{Résumé}}
+\renewcommand\headrulewidth{1 pt}\fancyhead[L]{Chafik AKMOUCHE}\fancyhead[C]{Master 2 ID - Université d'Angers}\fancyhead[R]{\textit{Algorithme génétique}}
+\setcounter{page}{1}
+\pagenumbering{arabic}
+%\renewcommand\headrulewidth{1 pt}\fancyhead[L]{}\fancyhead[C]{}\fancyhead[R]
+%{\textit{Résumé}}
 
-\thispagestyle{empty}
+%\thispagestyle{empty}
 \textbf{Résumé}\\
 
 Dans ce papier, nous avons implémenté un algorithme génétique avec plusieurs opérateurs de sélection, croisement, mutation, remplacement... et nous l'avons appliqué au problème OneMax.\\
 
-En testant les différents opérateurs, nous avons remarqué qu'il n'y a pas d'opérateur performant d'une manière absolue qu'un autre opérateur, mais tout dépend du problème traité, de sa taille mais surtout de l'instant lorsque l'opérateur est utilisé. La problématique dressée est donc : quel opérateur et quand l'utiliser afin d'augmenter la fitness cumulée ? c'est ce que nous avons traité dans la deuxième partie de ce rapport, ensuite nous avons implémenté deux mécanismes d'apprentissage par renforcement (PM et UCB) et nous les avons injecté à l'algorithme génétique.\\
+En testant les différents opérateurs, nous avons remarqué qu'il n'y a pas d'opérateur performant d'une manière absolue qu'un autre opérateur, mais tout dépend du problème traité, de sa taille mais surtout de l'instant lorsque l'opérateur est utilisé. La problématique dressée est donc : quel opérateur et quand l'utiliser afin d'augmenter la fitness cumulée ? c'est ce que nous avons traité dans la deuxième partie de cet article, ensuite nous avons implémenté deux mécanismes d'apprentissage par renforcement (PM et UCB) et nous les avons injecté à l'algorithme génétique.\\
 
 Enfin, nous avons présenté, analysé et discuté les résultats obtenus, et comparé aux résultats obtenus par l'algorithme classique.\\ 
 
-\textbf{Mots clés : } Algorithme évolutionnaire, Algorithme génétique, Problème OneMax, Problème du Bandit, PM, UCB.
+\textbf{Mots clés : } Algorithme évolutionnaire, Algorithme génétique, Problème OneMax, Problème du Bandit, PM, UCB.\\
+
+\textbf{Abstract}\\
+
+In this article, we implemented a genetic algorithm with several operators of selection, crossing, mutation, replacement... and we applied it to the OneMax problem.\\
+
+By testing the different operators, we noticed that there is no absolute operator more efficient than another operator, but everything depends on the problem treated, its size but especially on the moment when the operator is used. The problem posed is therefore: which operator and when to use it to increase the cumulative fitness? this is what we covered in the second part of this report, then we implemented two reinforcement learning mechanisms (PM and UCB) and injected them into the genetic algorithm.\\
+
+Finally, we presented, analyzed and discussed the results obtained, and compared to the results obtained by the classical algorithm.\\
+
+\textbf{Keywords:} Evolutionary algorithm, Genetic algorithm, OneMax problem, Bandit problem, PM, UCB.
 
 \newpage
 \renewcommand\headrulewidth{1 pt}\fancyhead[L]{}\fancyhead[C]{}\fancyhead[R]{\textit{Algorithmes intelligents pour l'aide à la décision}} 
-\setcounter{page}{1}
-\pagenumbering{arabic}
+%\setcounter{page}{1}
+%\pagenumbering{arabic}
 
 \section{Introduction}
 En l'absence d'une méthode de résolution exacte pour un problème, plusieurs méthodes de recherche de solutions approchées sont utilisées dont les algorithmes génétiques.\\
@@ -124,11 +137,11 @@ Dans la deuxième partie, nous allons donc discuter le fonctionnement de l'algor
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Rappels sur les algorithmes génétiques}
-\par Les algorithmes génétiques appartiennent à la famille des algorithmes évolutionnistes. Leur but est d'obtenir une solution approchée à un problème d'optimisation, lorsqu'il n'existe pas de méthode de résolution exacte.
+\par Les algorithmes génétiques appartiennent à la famille des algorithmes évolutionnistes. Leur but est d'obtenir une solution approchée à un problème d'optimisation, lorsqu'il n'existe pas de méthode de résolution exacte \cite{algo_gen}.
 \begin{itemize}[label=-]
-\item Les algorithmes génétiques se basent au départ sur une population de solutions candidates qui va évoluer de génération en génération jusqu’à la génération qui contient les meilleures solutions.
-\item Chaque individu comprend des propriétés et il peut être sujet à des transformations génétiques (mutation, croisement...).
-\item Chaque individu est évalué et cette valeur d’aptitude (fitness) est un critère pour sa survie d’une génération à une autre.
+\item Les algorithmes génétiques se basent au départ sur une population de solutions candidates qui va évoluer de génération en génération jusqu’à la génération qui contient les meilleures solutions \cite{algo_gen2}.
+\item Chaque individu comprend des propriétés et il peut être sujet à des transformations génétiques (mutation, croisement...) \cite{algo_gen2}.
+\item Chaque individu est évalué et cette valeur d’aptitude (fitness) est un critère pour sa survie d’une génération à une autre \cite{algo_gen2}.
 \end{itemize}
 
 \begin{figure}[H]
@@ -140,7 +153,7 @@ Dans la deuxième partie, nous allons donc discuter le fonctionnement de l'algor
 \end{figure}
 
 \subsection{Rappels sur le problème OneMax}
-\par Le problème OneMax est un problème simple qui consiste à maximiser le nombre de uns d'une séquence de bits.
+\par Le problème OneMax est un problème simple qui consiste à maximiser le nombre de uns d'une séquence de bits \cite{onemax}.
 \par Formellement, le problème OneMax peut être décrit comme la recherche d'une séquence (ou un vecteur) $ \vec{x} = (x_1, x_2, ... , x_n) $, avec $ x_i \in \{0,1\} $, qui maximise l'équation suivante : $ F(\vec{x}) = \sum_{i=1}^{n} x_i $
 
 \section{Application de l'algorithme génétique au problème OneMax}
@@ -308,7 +321,8 @@ Il existe plusieurs méthodes qui permettent à partir d'un certain nombre de do
 \section{Algorithme du Bandit}
 \paragraph{Problème du bandit : } Afin de simplifier le problème du bandit, nous allons prendre le cas le plus simple. On considère une machines à sous à 2 bras, notés A et B. L’action du bras A (resp. B) donne lieu à un gain qui n'est pas connu a priori, et le joueur cherche à actionner le bras le plus favorable. L'idée consiste à choisir un bras au hasard, mais en modifiant au cours du temps la loi de probabilité du choix du bras, i.e. Si à l’étape $ n $, le bras actionné avait une probabilité $ p_n $ d’être choisi, s’il produit un gain, on lui affecte à l’étape suivante une probabilité plus importante $ p_{n+1} \ge p_n $.
 
-\paragraph{Algorithme de bandit : } L'algorithme du bandit tient son nom du problème expliqué dans le paragraphe précédent où le joueur cherche à maximiser son gain. L'algorithme du bandit est un modèle d'apprentissage par renforcement qui consiste à un instant $ t $ de choisir l'action $ a $ dont il a appris qu'elle récompense beaucoup.\\
+\paragraph{Algorithme dug
+ bandit : } L'algorithme du bandit tient son nom du problème expliqué dans le paragraphe précédent où le joueur cherche à maximiser son gain. L'algorithme du bandit est un modèle d'apprentissage par renforcement qui consiste à un instant $ t $ de choisir l'action $ a $ dont il a appris qu'elle récompense beaucoup.\\
 
 \par Dans notre cas, les k-bras de la machine à sous (multi-armed bandit) sont les différents opérateurs de mutation et à chaque génération l'algorithme choisit un opérateur et ajuste les probabilités du choix des opérateurs en fonction des gains.
 
@@ -379,13 +393,21 @@ Au lancement de l'algorithme (avec une population initialisée à 0), la mutatio
 	\end{center}
 \end{figure}
 
-Sur la figure \ref{histogrammeOppm}, on peut remarquer ce qu'on a expliqué dans le paragraphe précédent. On remarque que l'opérateur 5-flip est beaucoup plus utilisé par rapport aux autres opérateurs car il améliore beaucoup plus la fitness au début l'exécution, ensuite l'opérateur bit-flip ($\simeq 50$ fois), 3-flip ($\simeq 45$ fois) et enfin 1-fois ($\simeq 40$ fois). 
+Sur la figure \ref{histogrammeOppm} et \ref{utilisation_op}, on peut remarquer ce qu'on a expliqué dans le paragraphe précédent. On remarque que l'opérateur 5-flip est beaucoup plus utilisé par rapport aux autres opérateurs car il améliore beaucoup plus la fitness au début l'exécution, ensuite l'opérateur 3 flip, 1 flip et enfin 2 fois avec une légère différence. 
 
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[scale=0.5]{img/histogrammeOppm.png}
-		\caption{Moyenne d'utilisation de chaque opérateur de mutation par PM (Probability Matching)}
+		\caption{Moyenne d'utilisation de chaque opérateur de mutation - PM (Probability Matching)}
 		\label{histogrammeOppm}
+	\end{center}
+\end{figure}
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.5]{img/utilisation_op.png}
+		\caption{Moyenne d'utilisation de chaque opérateur de mutation - PM (Probability Matching)}
+		\label{utilisation_op}
 	\end{center}
 \end{figure}
 
@@ -429,7 +451,13 @@ Dans la deuxième partie, nous avons traité le problème du choix des opérateu
 Enfin, nous avons présenté les résultats obtenus par ces deux derniers algorithmes UCB et PM, discuté et comparé ces résultats avec les résultats obtenus dans la première partie. 
 
 \subsection{Perspectives d'amélioration}
-Nous avons vu que le choix d'opérateur dépend d'une manière directe de l'instant et de l'état actuel de la population. Dans ce travail nous avons implémenté des mécanisme qui permettent de choisir intelligemment les opérateurs de mutation, une amélioration serait donc d'étendre ce mécanisme pour la sélection des autres opérateurs (croisement, remplacement...). Une autre amélioration serait aussi d'implémenter d'autres mécanisme d'apprentissage par renforcement et les comparer à UCB et PM. 
+Nous avons vu que le choix d'opérateur dépend d'une manière directe de l'instant et de l'état actuel de la population. Dans ce travail nous avons implémenté des mécanisme qui permettent de choisir intelligemment les opérateurs de mutation, une amélioration serait donc d'étendre ce mécanisme pour la sélection des autres opérateurs (croisement, remplacement...). Une autre amélioration serait aussi d'implémenter d'autres mécanisme d'apprentissage par renforcement et les comparer à UCB et PM.
+
+\newpage
+\renewcommand\headrulewidth{1 pt}\fancyhead[L]{}\fancyhead[C]{}\fancyhead[R]{\textit{Bibliographie}}
+\bibliographystyle{plain}
+\bibliography{mabib}
+\addcontentsline{toc}{chapter}{Bibliographie}
 
 \end{document}
 

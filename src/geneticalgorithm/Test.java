@@ -35,10 +35,10 @@ public class Test {
 	/*********************************************************
 	 ************* PARAMÈTRES DE L'ALGORITHME ****************
 	 *********************************************************/
-	public static final int TAILLE_POPULATION = 300;
-	public static final int TAILLE_INDIVIDU = 300;
-	public static final int MAX_GENERATION = 100;
-	public static final int NB_EXECUTION = 4;
+	public static final int TAILLE_POPULATION = 1000;
+	public static final int TAILLE_INDIVIDU = 1000;
+	public static final int MAX_GENERATION = 500;
+	public static final int NB_EXECUTION = 10;
 	public static final double PROBA_MUTATION = 0.25;
 	public final static String AOS = "PM"; // UCB
 	public static double pMin = 0.05; // pour PM
